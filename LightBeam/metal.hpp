@@ -25,6 +25,6 @@ public:
 		auto reflected = Vec3::reflect(ray.direction().norm(), hit_record.normal());
 		scattered = Ray(hit_record.point(), reflected + _fuzz * Vec3::random_in_unit_sphere());
 		attenuation = _albedo;
-		return (dot(scattered.direction(), hit_record.normal()) > 0.0);
+		return (Vec3::dot(scattered.direction(), hit_record.normal()) > 0.0);
 	}
 };

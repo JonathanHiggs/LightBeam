@@ -44,20 +44,24 @@ Color ray_color(
 
 int main()
 {
-	const unsigned int width = 2000;
-	const unsigned int height = 1000;
+	const unsigned int width = 800;
+	const unsigned int height = 400;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 10;
+	const int sample_rate = 16;
 
 	auto image = Bitmap(width, height);
 
+	const auto from = Vec3(-1.8, 1.6, 1);
+	const auto at = Vec3(-0.2, 0.2, -0.9);
 	auto camera = Camera::from_hfov(
-		Vec3(-1.8, 1.6, 1),
-		Vec3(-0.2, 0.2, -0.9),
+		from,
+		at,
 		Vec3::unit_y,
 		55.0,
-		aspect_ratio);
+		aspect_ratio,
+		0.5,
+		(from - at).length());
 
 	auto hittables = HittableList();
 

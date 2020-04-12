@@ -142,6 +142,7 @@
     <ClCompile Include="hittable_list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="sphere.hpp" />
     <ClInclude Include="utils.hpp" />
+    <ClInclude Include="vec2.hpp" />
     <ClInclude Include="vec3.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

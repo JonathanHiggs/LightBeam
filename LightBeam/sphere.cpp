@@ -8,9 +8,9 @@ bool Sphere::hit(
 	HitRecord& record) const
 {
 	const auto oc = ray.origin() - _center;
-	const auto a = dot(ray.direction(), ray.direction());
-	const auto half_b = dot(oc, ray.direction());
-	const auto c = dot(oc, oc) - _radius * _radius;
+	const auto a = Vec3::dot(ray.direction(), ray.direction());
+	const auto half_b = Vec3::dot(oc, ray.direction());
+	const auto c = Vec3::dot(oc, oc) - _radius * _radius;
 
 	const auto discriminant = half_b * half_b - a * c;
 
@@ -24,7 +24,7 @@ bool Sphere::hit(
 
 	const auto point = ray.at(distance);
 	auto normal = outward_normal(point);
-	const auto inside = dot(ray.direction(), normal) > 0.0;
+	const auto inside = Vec3::dot(ray.direction(), normal) > 0.0;
 
 	if (inside)
 		normal = -normal;
