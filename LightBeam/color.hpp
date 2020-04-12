@@ -36,6 +36,10 @@ public:
 	double blue() const noexcept { return _b; }
 
 
+	friend Color operator * (double t, const Color& c);
+	friend Color operator + (const Color& b, const Color& c);
+	friend Color operator * (const Color& v, const Color& c);
+
 	Color& operator+=(const Color& c) {
 		_r += c._r;
 		_g += c._g;
@@ -52,10 +56,11 @@ public:
 
 	rgb_t to_rgb() const {
 		// Make sure to clamp to range 0.0 - 1.0 before converting up
+		// sqrt as gamma correction
 		return rgb_t{
-			static_cast<unsigned char>(255.999 * clamp(_r, 0.0, 0.999)),
-			static_cast<unsigned char>(255.999 * clamp(_g, 0.0, 0.999)),
-			static_cast<unsigned char>(255.999 * clamp(_b, 0.0, 0.999)) };
+			static_cast<unsigned char>(255.999 * clamp(std::sqrt(_r), 0.0, 0.999)),
+			static_cast<unsigned char>(255.999 * clamp(std::sqrt(_g), 0.0, 0.999)),
+			static_cast<unsigned char>(255.999 * clamp(std::sqrt(_b), 0.0, 0.999)) };
 	}
 
 	static Color from_norm_vec(const Vec3& v) {
@@ -66,3 +71,16 @@ public:
 	}
 };
 
+
+inline Color operator *(double t, const Color& c) {
+	return Color(t * c._r, t * c._g, t * c._b);
+}
+
+
+inline Color operator + (const Color& b, const Color& c) {
+	return Color(b._r + c._r, b._g + c._g, b._b + c._b);
+}
+
+inline Color operator*(const Color& u, const Color& c) {
+	return Vec3(u._r * c._r, u._g * c._g, u._b * c._b);
+}

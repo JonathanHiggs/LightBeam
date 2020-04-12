@@ -2,6 +2,11 @@
 
 #include <iostream>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+#include "random.hpp"
+
 
 class Vec3 {
 private:
@@ -62,6 +67,41 @@ public:
 
 	static Vec3 interpolate(const Vec3& u, const Vec3& v, double t) {
 		return (1.0 - t) * u + t * v;
+	}
+
+
+	inline static Vec3 random() {
+		return Vec3(random_double(), random_double(), random_double());
+	}
+
+	inline static Vec3 random(double min, double max) {
+		return Vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+	}
+
+	static Vec3 random_in_unit_sphere() {
+		while (true) {
+			auto p = Vec3::random(-1, 1);
+			if (p.length_squared() >= 1) continue;
+			return p;
+		}
+	}
+
+	static Vec3 random_unit_vector() {
+		auto a = random_double(0.0, 2.0 * M_PI);
+		auto z = random_double(-1, 1);
+		auto r = sqrt(1.0 - z * z);
+		return Vec3(r * std::cos(a), r * std::sin(a), z);
+	}
+
+	static Vec3 random_in_hemisphere(const Vec3& normal) {
+		Vec3 in_unit_sphere = random_in_unit_sphere();
+		if (dot(in_unit_sphere, normal) > 0.0)
+			return -in_unit_sphere;
+		return in_unit_sphere;
+	}
+
+	static Vec3 reflect(const Vec3& vec, const Vec3& normal) {
+		return vec - 2 * dot(vec, normal) * normal;
 	}
 };
 

@@ -29,7 +29,7 @@ bool Sphere::hit(
 	if (inside)
 		normal = -normal;
 
-	record = HitRecord(distance, point, normal, !inside);
+	record = HitRecord(distance, point, normal, !inside, _material);
 
 	return true;
 }
