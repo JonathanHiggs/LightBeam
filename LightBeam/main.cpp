@@ -4,6 +4,7 @@
 #include "camera.hpp"
 #include "color.hpp"
 #include "constants.hpp"
+#include "dielectric.hpp"
 #include "sphere.hpp"
 #include "hittable_list.hpp"
 #include "lamberitian_diffuse.hpp"
@@ -43,9 +44,9 @@ Color ray_color(
 
 int main()
 {
-	const unsigned int width = 1000;
-	const unsigned int height = 500;
-	const int sample_rate = 4;
+	const unsigned int width = 2000;
+	const unsigned int height = 1000;
+	const int sample_rate = 8;
 
 	auto image = Bitmap(width, height);
 	auto camera = Camera(
@@ -57,22 +58,28 @@ int main()
 	auto hittables = HittableList();
 
 	hittables.add(std::make_shared<Sphere>(
+		Vec3(0, -100.5, -1), 100, std::make_shared<LambertianDiffuse>(Vec3(0.8, 0.8, 0.0))));
+
+	hittables.add(std::make_shared<Sphere>(
+		Vec3(-2, 0, -1), 0.3, std::make_shared<Metal>(Vec3(0.8, 0.8, 0.9), 0.05)));
+
+	hittables.add(std::make_shared<Sphere>(
+		Vec3(-1, 0, -1), 0.4, Dielectric::diamond()));
+
+	hittables.add(std::make_shared<Sphere>(
+		Vec3(-1.3, 0, -2), 0.3, std::make_shared<LambertianDiffuse>(Vec3(0.2, 0.9, 0.5))));
+
+	hittables.add(std::make_shared<Sphere>(
 		Vec3(0, 0, -1), 0.5, std::make_shared<LambertianDiffuse>(Vec3(0.7, 0.3, 0.3))));
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(0, -100.5, -1), 100, std::make_shared<LambertianDiffuse>(Vec3(0.8, 0.8, 0.0))));
+		Vec3(0.5, 0, -0.5), -0.5, std::make_shared<Dielectric>(1.5)));
 
 	hittables.add(std::make_shared<Sphere>(
 		Vec3(1, 0, -1), 0.3, std::make_shared<Metal>(Vec3(0.8, 0.6, 0.2), 0.01)));
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(-1, 0, -1), 0.4, std::make_shared<Metal>(Vec3(0.8, 0.8, 0.8), 0.2)));
-
-	hittables.add(std::make_shared<Sphere>(
 		Vec3(2, 0, -1), 0.6, std::make_shared<LambertianDiffuse>(Vec3(0.8, 0.2, 1.0))));
-
-	hittables.add(std::make_shared<Sphere>(
-		Vec3(-2, 0, -1), 0.3, std::make_shared<LambertianDiffuse>(Vec3(0.2, 0.9, 0.5))));
 
 
 	for (auto j = 0; j < height; ++j)
@@ -108,5 +115,5 @@ int main()
 
 	std::cerr << std::endl << "Completed" << std::endl;
 
-	image.save_image("image3.bmp");
+	image.save_image("image2.bmp");
 }

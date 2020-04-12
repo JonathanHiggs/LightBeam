@@ -77,5 +77,8 @@
     <ClInclude Include="metal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dielectric.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

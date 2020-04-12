@@ -149,6 +149,7 @@
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="color.hpp" />
     <ClInclude Include="constants.hpp" />
+    <ClInclude Include="dielectric.hpp" />
     <ClInclude Include="hittable.hpp" />
     <ClInclude Include="hittable_list.hpp" />
     <ClInclude Include="hit_record.hpp" />

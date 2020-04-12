@@ -80,16 +80,16 @@ public:
 
 	static Vec3 random_in_unit_sphere() {
 		while (true) {
-			auto p = Vec3::random(-1, 1);
+			const auto p = Vec3::random(-1, 1);
 			if (p.length_squared() >= 1) continue;
 			return p;
 		}
 	}
 
 	static Vec3 random_unit_vector() {
-		auto a = random_double(0.0, 2.0 * M_PI);
-		auto z = random_double(-1, 1);
-		auto r = sqrt(1.0 - z * z);
+		const auto a = random_double(0.0, 2.0 * M_PI);
+		const auto z = random_double(-1, 1);
+		const auto r = sqrt(1.0 - z * z);
 		return Vec3(r * std::cos(a), r * std::sin(a), z);
 	}
 
@@ -102,6 +102,13 @@ public:
 
 	static Vec3 reflect(const Vec3& vec, const Vec3& normal) {
 		return vec - 2 * dot(vec, normal) * normal;
+	}
+
+	static Vec3 refract(const Vec3& uv, const Vec3& normal, double etai_over_etat) {
+		const auto cos_theta = dot(-uv, normal);
+		const auto out_parallel = etai_over_etat * (uv + cos_theta * normal);
+		const auto out_perp = -sqrt(1.0 - out_parallel.length_squared()) * normal;
+		return out_parallel + out_perp;
 	}
 };
 
@@ -135,12 +142,14 @@ inline Vec3 operator/(const Vec3& v, double t) {
 }
 
 inline double dot(const Vec3& u, const Vec3& v) {
+	// ToDo: move to static Vec3
 	return u.e[0] * v.e[0]
 		+ u.e[1] * v.e[1]
 		+ u.e[2] * v.e[2];
 }
 
 inline Vec3 cross(const Vec3& u, const Vec3& v) {
+	// ToDo: move to static Vec3
 	return Vec3(
 		u.e[1] * v.e[2] - u.e[2] * v.e[1],
 		u.e[2] * v.e[0] - u.e[0] * v.e[2],
