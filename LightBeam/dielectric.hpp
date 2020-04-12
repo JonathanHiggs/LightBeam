@@ -27,7 +27,7 @@ public:
 		Color& attenuation,
 		Ray& scattered
 	) const {
-		attenuation = Color::white;
+		attenuation = Color::WHITE;
 
 		auto etai_over_etat = hit_record.front_face()
 			? 1.0 / _refractive_index

@@ -27,8 +27,11 @@ public:
 		, _b{ v.z() }
 	{}
 
-	static const Color white;
-	static const Color black;
+	static const Color WHITE;
+	static const Color BLACK;
+	static const Color RED;
+	static const Color GREEN;
+	static const Color BLUE;
 
 
 	double red() const noexcept { return _r; }
