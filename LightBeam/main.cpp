@@ -1,6 +1,8 @@
+#include <chrono>
 #include <iostream>
 
 #include "Bitmap.hpp"
+#include "BoundingVolumeNode.hpp"
 #include "Camera.hpp"
 #include "Color.hpp"
 #include "Constants.hpp"
@@ -31,17 +33,17 @@ Color ray_color(
 	int max_depth = 50,
 	int depth = 0)
 {
-	HitRecord hitRecord;
+	HitRecord hit_record;
 
 	if (depth >= max_depth)
 		return Color::BLACK;
 
-	if (hittable.hit(ray, 1e-10, Util::infinity, hitRecord))
+	if (hittable.hit(ray, 1e-10, Util::infinity, hit_record))
 	{
 		Ray scattered;
 		Color attenuation;
 
-		if (hitRecord.meterial()->scatter(ray, hitRecord, attenuation, scattered))
+		if (hit_record.meterial()->scatter(ray, hit_record, attenuation, scattered))
 			return attenuation * ray_color(scattered, hittable, max_depth, ++depth);
 
 		return Color::BLACK;
@@ -53,10 +55,10 @@ Color ray_color(
 }
 
 
-HittableList random_scene() {
-	auto hittables = HittableList();
+std::vector<std::shared_ptr<const IHittable>> random_scene() {
+	auto hittables = std::vector<std::shared_ptr<const IHittable>>();
 
-	hittables.add(std::make_shared<Sphere>(
+	hittables.emplace_back(std::make_shared<Sphere>(
 		Vec3(0, -1000, 0), 1000, std::make_shared<LambertianDiffuse>(Vec3(0.5, 0.6, 0.5))));
 
 	for (int a = -11; a < 11; a++) {
@@ -72,7 +74,7 @@ HittableList random_scene() {
 				if (choose_mat < 0.8) {
 					// diffuse
 					auto albedo = Vec3::random() * Vec3::random();
-					hittables.add(std::make_shared<MovingSphere>(
+					hittables.emplace_back(std::make_shared<MovingSphere>(
 						center,
 						center + Vec3(0, Util::random_double(0, 0.5), 0),
 						0.0,
@@ -84,26 +86,26 @@ HittableList random_scene() {
 					// metal
 					auto albedo = Vec3::random(0.5, 1);
 					auto fuzz = Util::random_double(0, 0.5);
-					hittables.add(std::make_shared<Sphere>(
+					hittables.emplace_back(std::make_shared<Sphere>(
 						center, radius, std::make_shared<Metal>(albedo, fuzz)));
 				}
 				else {
 					// glass
 					auto refractive_index = Util::random_double(1.4, 2.4);
-					hittables.add(std::make_shared<Sphere>(
+					hittables.emplace_back(std::make_shared<Sphere>(
 						center, radius, std::make_shared<Dielectric>(refractive_index)));
 				}
 			}
 		}
 	}
 
-	hittables.add(std::make_shared<Sphere>(
+	hittables.emplace_back(std::make_shared<Sphere>(
 		Vec3(-4, 1, 0), 1.0, std::make_shared<LambertianDiffuse>(Vec3(0.4, 0.2, 0.1))));
 
-	hittables.add(std::make_shared<Sphere>(
+	hittables.emplace_back(std::make_shared<Sphere>(
 		Vec3(0, 1, 0), 1.0, std::make_shared<Dielectric>(1.5)));
 
-	hittables.add(std::make_shared<Sphere>(
+	hittables.emplace_back(std::make_shared<Sphere>(
 		Vec3(4, 1, 0), 1.0, std::make_shared<Metal>(Vec3(0.7, 0.6, 0.5), 0.0)));
 
 	return hittables;
@@ -112,11 +114,11 @@ HittableList random_scene() {
 
 int main()
 {
-	const unsigned int width = 800;
-	const unsigned int height = 400;
+	const unsigned int width = 1000;
+	const unsigned int height = 500;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 4;
+	const int sample_rate = 8;
 
 	auto image = Bitmap(width, height);
 
@@ -136,11 +138,15 @@ int main()
 		0.5);
 
 	auto hittables = random_scene();
+	auto hittable_list = HittableList(hittables);
+	auto bvn = BoundingVolumeNode(hittables, 0.0, 0.5);
+
+	auto begin_time = std::chrono::high_resolution_clock::now();
 
 	long long rays = 0;
 	for (auto j = 0; j < height; ++j)
 	{
-		std::cerr << "\rScanlines completed: " << j << " / " << height << "  (" << j * 100.0 / height  << "%) " << '\t' << rays << " processed" << std::flush;
+		std::cerr << "\rScanlines completed: " << j << " / " << height << " : " << j * 100.0 / height  << "% : " << rays << " rays processed" << std::flush;
 
 		for (auto i = 0; i < width; ++i)
 		{
@@ -161,7 +167,7 @@ int main()
 					auto v = 2.0 * (0.5 - (double(j) + jd) / height);
 
 					auto ray = camera.get_ray(u, v);
-					col += ray_color(ray, hittables);
+					col += ray_color(ray, bvn);
 				}
 			}
 
@@ -170,7 +176,11 @@ int main()
 		}
 	}
 
-	std::cerr << std::endl << "Completed" << std::endl;
+	auto end_time = std::chrono::high_resolution_clock::now();
+	auto elapsed = end_time - begin_time;
+	auto seconds = elapsed.count() * 1e-9;
 
-	image.save_image("image4.bmp");
+	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
+
+	image.save_image("image10.bmp");
 }

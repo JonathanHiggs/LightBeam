@@ -23,6 +23,12 @@
     <ClCompile Include="MovingSphere.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="AxisAlignedBoundingBox.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingVolumeNode.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -78,6 +84,12 @@
     </ClInclude>
     <ClInclude Include="MovingSphere.hpp">
       <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisAlignedBoundingBox.hpp">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingVolumeNode.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,7 +39,7 @@ namespace LightBeam
 					: _refractive_index;
 
 				const auto unit_direction = ray.direction().norm();
-				auto cos_theta = std::min(Math::Vec3::dot(-unit_direction, hit_record.normal()), 1.0);
+				auto cos_theta = Util::ffmin(Math::Vec3::dot(-unit_direction, hit_record.normal()), 1.0);
 				auto sin_theta = std::sqrt(1.0 - cos_theta * cos_theta);
 				auto reflect_prod = schlick(cos_theta, etai_over_etat);
 

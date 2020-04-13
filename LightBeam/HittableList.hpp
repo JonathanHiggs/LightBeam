@@ -12,16 +12,19 @@ namespace LightBeam
 	{
 		class HittableList : public IHittable {
 		private:
-			std::vector<std::shared_ptr<IHittable>> _hittables;
+			std::vector<std::shared_ptr<const IHittable>> _hittables;
 
 		public:
 			HittableList()
 				: _hittables{}
 			{}
 
-			void add(const std::shared_ptr<IHittable>& hittable)
-			{
-				_hittables.emplace_back(hittable);
+			HittableList(std::vector<std::shared_ptr<const IHittable>> hittables)
+				: _hittables{ hittables }
+			{}
+
+			const std::vector<std::shared_ptr<const IHittable>>& hittables() const noexcept {
+				return _hittables;
 			}
 
 			bool hit(
@@ -29,6 +32,11 @@ namespace LightBeam
 				double min_distance,
 				double max_distance,
 				HitRecord& record) const;
+
+			bool bounding_box(
+				double begin_time,
+				double end_time,
+				AxisAlignedBoundingBox& bounding_box) const;
 		};
 	}
 }

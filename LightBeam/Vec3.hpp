@@ -44,6 +44,8 @@ namespace LightBeam
 
 			Vec3 operator -() const { return Vec3(-_data[0], -_data[1], -_data[2]); }
 
+			double operator[](int axis) const { return _data[axis]; }
+
 
 			double length() const {
 				return std::sqrt(length_squared());

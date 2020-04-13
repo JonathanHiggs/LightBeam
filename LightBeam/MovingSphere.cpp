@@ -1,6 +1,11 @@
 #include "MovingSphere.hpp"
 
 
+using namespace LightBeam::Math;
+using namespace LightBeam::Materials;
+using namespace LightBeam::Rendering;
+
+
 namespace LightBeam
 {
 	namespace Shapes
@@ -12,7 +17,7 @@ namespace LightBeam
 			double t0,
 			double t1,
 			double radius,
-			IMaterialCPtr material
+			std::shared_ptr<const IMaterial> material
 		)
 			: _center_t0{ center_t0 }
 			, _center_t1{ center_t1 }
@@ -24,15 +29,15 @@ namespace LightBeam
 
 
 		bool MovingSphere::hit(
-			const Rendering::Ray& ray,
+			const Ray& ray,
 			double min_distance,
 			double max_distance,
-			Rendering::HitRecord& record) const
+			HitRecord& record) const
 		{
 			const auto oc = ray.origin() - center(ray.time());
-			const auto a = Math::Vec3::dot(ray.direction(), ray.direction());
-			const auto half_b = Math::Vec3::dot(oc, ray.direction());
-			const auto c = Math::Vec3::dot(oc, oc) - _radius * _radius;
+			const auto a = Vec3::dot(ray.direction(), ray.direction());
+			const auto half_b = Vec3::dot(oc, ray.direction());
+			const auto c = Vec3::dot(oc, oc) - _radius * _radius;
 
 			const auto discriminant = half_b * half_b - a * c;
 
@@ -51,21 +56,38 @@ namespace LightBeam
 			if (inside)
 				normal = -normal;
 
-			record = Rendering::HitRecord(distance, point, normal, !inside, _material);
+			record = HitRecord(distance, point, normal, !inside, _material);
 
 			return true;
 		}
 
+		bool MovingSphere::bounding_box(
+			double begin_time,
+			double end_time,
+			AxisAlignedBoundingBox& bounding_box) const
+		{
+			auto box0 = AxisAlignedBoundingBox(
+				center(begin_time) - Vec3(_radius, _radius, _radius),
+				center(begin_time) + Vec3(_radius, _radius, _radius));
 
-		MovingSphere::Vec3 MovingSphere::center(double time) const {
+			auto box1 = AxisAlignedBoundingBox(
+				center(end_time) - Vec3(_radius, _radius, _radius),
+				center(end_time) + Vec3(_radius, _radius, _radius));
+
+			bounding_box = AxisAlignedBoundingBox::surrounding_box(box0, box1);
+			return true;
+		}
+
+
+		Vec3 MovingSphere::center(double time) const {
 			return Vec3::interpolate(_center_t0, _center_t1, (time - _t0) / (_t1 - _t0));
 		}
 
-		MovingSphere::Vec3 MovingSphere::outward_normal(const Math::Vec3& p, double time) const {
+		Vec3 MovingSphere::outward_normal(const Vec3& p, double time) const {
 			return (p - center(time)).norm();
 		}
 
-		MovingSphere::Vec3 MovingSphere::inward_normal(const Math::Vec3& p, double time) const {
+		Vec3 MovingSphere::inward_normal(const Vec3& p, double time) const {
 			return -outward_normal(p, time);
 		}
 	}

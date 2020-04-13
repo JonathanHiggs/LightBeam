@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AxisAlignedBoundingBox.cpp" />
+    <ClCompile Include="BoundingVolumeNode.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="HittableList.cpp" />
@@ -148,7 +150,9 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AxisAlignedBoundingBox.hpp" />
     <ClInclude Include="Bitmap.hpp" />
+    <ClInclude Include="BoundingVolumeNode.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Constants.hpp" />

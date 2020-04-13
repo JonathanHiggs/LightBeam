@@ -40,6 +40,11 @@ namespace LightBeam
 				double max_distance,
 				Rendering::HitRecord& record) const;
 
+			bool bounding_box(
+				double begin_time,
+				double end_time,
+				Rendering::AxisAlignedBoundingBox& bounding_box) const;
+
 			Math::Vec3 outward_normal(const Math::Vec3& p) const {
 				return (p - _center).norm();
 			}

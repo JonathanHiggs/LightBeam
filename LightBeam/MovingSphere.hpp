@@ -9,26 +9,22 @@ namespace LightBeam
 	namespace Shapes
 	{
 		class MovingSphere : public Rendering::IHittable {
-		public:
-			typedef Math::Vec3 Vec3;
-			typedef std::shared_ptr<const Materials::IMaterial> IMaterialCPtr;
-
 		private:
-			Vec3 _center_t0;
-			Vec3 _center_t1;
+			Math::Vec3 _center_t0;
+			Math::Vec3 _center_t1;
 			double _t0;
 			double _t1;
 			double _radius;
-			IMaterialCPtr _material;
+			std::shared_ptr<const Materials::IMaterial> _material;
 
 		public:
 			MovingSphere(
-				const Vec3& center_t0,
-				const Vec3& center_t1,
+				const Math::Vec3& center_t0,
+				const Math::Vec3& center_t1,
 				double t0,
 				double t1,
 				double radius,
-				IMaterialCPtr material);
+				std::shared_ptr<const Materials::IMaterial> material);
 
 			bool hit(
 				const Rendering::Ray& ray,
@@ -36,11 +32,16 @@ namespace LightBeam
 				double max_distance,
 				Rendering::HitRecord& record) const;
 
-			Vec3 center(double time) const;
+			bool bounding_box(
+				double begin_time,
+				double end_time,
+				Rendering::AxisAlignedBoundingBox& bounding_box) const;
 
-			Vec3 outward_normal(const Math::Vec3& p, double time) const;
+			Math::Vec3 center(double time) const;
 
-			Vec3 inward_normal(const Math::Vec3& p, double time) const;
+			Math::Vec3 outward_normal(const Math::Vec3& p, double time) const;
+
+			Math::Vec3 inward_normal(const Math::Vec3& p, double time) const;
 		};
 	}
 }
