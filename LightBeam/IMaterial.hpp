@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "color.hpp"
-#include "ray.hpp"
-#include "hittable.hpp"
+#include "Color.hpp"
+#include "IHittable.hpp"
+#include "Ray.hpp"
 
 
 class IMaterial {

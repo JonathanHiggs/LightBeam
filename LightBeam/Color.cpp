@@ -1,4 +1,4 @@
-#include "color.hpp"
+#include "Color.hpp"
 
 
 const Color Color::WHITE = Color(1.0, 1.0, 1.0);

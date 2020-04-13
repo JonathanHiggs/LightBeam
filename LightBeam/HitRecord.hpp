@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "ray.hpp"
+#include "Ray.hpp"
 
 
 class IMaterial;

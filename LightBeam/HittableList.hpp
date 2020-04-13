@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "hittable.hpp"
+#include "IHittable.hpp"
 
 
 class HittableList : public IHittable {

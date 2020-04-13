@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "ray.hpp"
-#include "vec2.hpp"
-#include "vec3.hpp"
-#include "random.hpp"
-#include "utils.hpp"
+#include "Ray.hpp"
+#include "Random.hpp"
+#include "Utils.hpp"
+#include "Vec2.hpp"
+#include "Vec3.hpp"
 
 
 class Camera {
@@ -75,7 +75,7 @@ public:
 		const auto offset = _u * rd.x() + _v * rd.y();
 		return Ray(
 			_origin + offset,
-			_center + u * _horizontal + v * _vertical - _origin);
+			_center + u * _horizontal + v * _vertical - _origin - offset);
 	}
 
 private:
@@ -95,7 +95,7 @@ private:
 
 		return Camera(
 			from,
-			from - w,
+			from - focal_distance * w,
 			2.0 * half_width * focal_distance * u,
 			2.0 * half_height * focal_distance * v,
 			u,

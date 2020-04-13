@@ -1,6 +1,6 @@
 #pragma once
 
-#include "material.hpp"
+#include "IMaterial.hpp"
 
 
 class LambertianDiffuse : public IMaterial {

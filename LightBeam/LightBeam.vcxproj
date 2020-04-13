@@ -138,31 +138,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="color.cpp" />
-    <ClCompile Include="hittable_list.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="HittableList.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="sphere.cpp" />
-    <ClCompile Include="vec2.cpp" />
-    <ClCompile Include="vec3.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Vec2.cpp" />
+    <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bitmap.hpp" />
-    <ClInclude Include="camera.hpp" />
-    <ClInclude Include="color.hpp" />
-    <ClInclude Include="constants.hpp" />
-    <ClInclude Include="dielectric.hpp" />
-    <ClInclude Include="hittable.hpp" />
-    <ClInclude Include="hittable_list.hpp" />
-    <ClInclude Include="hit_record.hpp" />
-    <ClInclude Include="lamberitian_diffuse.hpp" />
-    <ClInclude Include="material.hpp" />
-    <ClInclude Include="metal.hpp" />
-    <ClInclude Include="random.hpp" />
-    <ClInclude Include="ray.hpp" />
-    <ClInclude Include="sphere.hpp" />
-    <ClInclude Include="utils.hpp" />
-    <ClInclude Include="vec2.hpp" />
-    <ClInclude Include="vec3.hpp" />
+    <ClInclude Include="Bitmap.hpp" />
+    <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Dielectric.hpp" />
+    <ClInclude Include="HittableList.hpp" />
+    <ClInclude Include="HitRecord.hpp" />
+    <ClInclude Include="IHittable.hpp" />
+    <ClInclude Include="IMaterial.hpp" />
+    <ClInclude Include="LamberitianDiffuse.hpp" />
+    <ClInclude Include="Metal.hpp" />
+    <ClInclude Include="Random.hpp" />
+    <ClInclude Include="Ray.hpp" />
+    <ClInclude Include="Sphere.hpp" />
+    <ClInclude Include="Utils.hpp" />
+    <ClInclude Include="Vec2.hpp" />
+    <ClInclude Include="Vec3.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

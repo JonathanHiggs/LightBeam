@@ -6,7 +6,7 @@
 #include <iostream>
 #include <math.h>
 
-#include "random.hpp"
+#include "Random.hpp"
 
 
 class Vec3 {

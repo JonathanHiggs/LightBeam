@@ -1,4 +1,4 @@
-#include "vec2.hpp"
+#include "Vec2.hpp"
 
 
 const Vec2 Vec2::nan = Vec2(std::nan("1"), std::nan("1"));
@@ -25,7 +25,7 @@ Vec2 operator*(const Vec2& u, const Vec2& v) {
 }
 
 Vec2 operator*(double t, const Vec2& v) {
-	return Vec2(t * v._data[0], t * v._data[0]);
+	return Vec2(t * v._data[0], t * v._data[1]);
 }
 
 Vec2 operator*(const Vec2& u, double t) {

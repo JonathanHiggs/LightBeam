@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "bitmap.hpp"
-#include "vec3.hpp"
-#include "utils.hpp"
+#include "Bitmap.hpp"
+#include "Utils.hpp"
+#include "Vec3.hpp"
 
 
 class Color {

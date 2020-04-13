@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "random.hpp"
+#include "Random.hpp"
 
 
 class Vec2 {

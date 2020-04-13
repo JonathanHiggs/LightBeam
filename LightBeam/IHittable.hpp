@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hit_record.hpp"
+#include "HitRecord.hpp"
 
 
 class IHittable {

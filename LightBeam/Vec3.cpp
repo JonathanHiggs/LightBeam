@@ -1,4 +1,4 @@
-#include "vec3.hpp"
+#include "Vec3.hpp"
 
 
 const Vec3 Vec3::nan = Vec3(std::nan("1"), std::nan("1"), std::nan("1"));

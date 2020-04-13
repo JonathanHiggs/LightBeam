@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "bitmap.hpp"
-#include "camera.hpp"
-#include "color.hpp"
-#include "constants.hpp"
-#include "dielectric.hpp"
-#include "sphere.hpp"
-#include "hittable_list.hpp"
-#include "lamberitian_diffuse.hpp"
-#include "metal.hpp"
+#include "Bitmap.hpp"
+#include "Camera.hpp"
+#include "Color.hpp"
+#include "Constants.hpp"
+#include "Dielectric.hpp"
+#include "HittableList.hpp"
+#include "LamberitianDiffuse.hpp"
+#include "Metal.hpp"
+#include "Sphere.hpp"
 
 
 // https://raytracing.github.io/books/RayTracingInOneWeekend.html
@@ -42,65 +42,83 @@ Color ray_color(
 }
 
 
-int main()
-{
-	const unsigned int width = 800;
-	const unsigned int height = 400;
-	auto aspect_ratio = double(width) / double(height);
-
-	const int sample_rate = 16;
-
-	auto image = Bitmap(width, height);
-
-	const auto from = Vec3(-1.8, 1.6, 1);
-	const auto at = Vec3(-0.2, 0.2, -0.9);
-	auto camera = Camera::from_hfov(
-		from,
-		at,
-		Vec3::unit_y,
-		55.0,
-		aspect_ratio,
-		0.5,
-		(from - at).length());
-
+HittableList random_scene() {
 	auto hittables = HittableList();
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(0, -100.5, -1), 100, std::make_shared<LambertianDiffuse>(Color(0.8, 0.8, 0.0))));
+		Vec3(0, -1000, 0), 1000, std::make_shared<LambertianDiffuse>(Vec3(0.5, 0.6, 0.5))));
+
+	for (int a = -11; a < 11; a++) {
+		for (int b = -11; b < 11; b++) {
+			const auto choose_mat = random_double();
+			const auto radius = 0.2 + choose_mat / 10.0;
+			const auto center = Vec3(a + (0.8 - radius) * random_double(), radius, b + (0.8 - radius) * random_double());
+
+			if ((center - Vec3(4, 0.2, 0)).length() > 0.9) {
+				if (choose_mat < 0.8) {
+					// diffuse
+					auto albedo = Vec3::random() * Vec3::random();
+					hittables.add(std::make_shared<Sphere>(
+						center, radius, std::make_shared<LambertianDiffuse>(albedo)));
+				}
+				else if (choose_mat < 0.95) {
+					// metal
+					auto albedo = Vec3::random(0.5, 1);
+					auto fuzz = random_double(0, 0.5);
+					hittables.add(std::make_shared<Sphere>(
+						center, radius, std::make_shared<Metal>(albedo, fuzz)));
+				}
+				else {
+					// glass
+					auto refractive_index = random_double(1.4, 2.4);
+					hittables.add(std::make_shared<Sphere>(
+						center, radius, std::make_shared<Dielectric>(refractive_index)));
+				}
+			}
+		}
+	}
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(-1.8, 0, -1), 0.3, std::make_shared<Metal>(Vec3(0.8, 0.8, 0.9), 0.05)));
+		Vec3(-4, 1, 0), 1.0, std::make_shared<LambertianDiffuse>(Vec3(0.4, 0.2, 0.1))));
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(-1, 0, -1), 0.4, Dielectric::diamond()));
+		Vec3(0, 1, 0), 1.0, std::make_shared<Dielectric>(1.5)));
 
 	hittables.add(std::make_shared<Sphere>(
-		Vec3(-1.3, 0, -2), 0.3, std::make_shared<LambertianDiffuse>(Vec3(0.2, 0.9, 0.5))));
+		Vec3(4, 1, 0), 1.0, std::make_shared<Metal>(Vec3(0.7, 0.6, 0.5), 0.0)));
 
-	hittables.add(std::make_shared<Sphere>(
-		Vec3(0, 0, -1), 0.5, std::make_shared<LambertianDiffuse>(Vec3(0.7, 0.3, 0.3))));
+	return hittables;
+}
 
-	hittables.add(std::make_shared<Sphere>(
-		Vec3(0.5, 0, -0.5), -0.2, std::make_shared<Dielectric>(1.5)));
 
-	hittables.add(std::make_shared<Sphere>(
-		Vec3(1, 0, -1), 0.3, std::make_shared<Metal>(Vec3(0.8, 0.6, 0.2), 0.01)));
+int main()
+{
+	const unsigned int width = 3840;
+	const unsigned int height = 2160;
+	auto aspect_ratio = double(width) / double(height);
 
-	hittables.add(std::make_shared<Sphere>(
-		Vec3(2.2, 0, -1), 0.6, std::make_shared<LambertianDiffuse>(Vec3(0.8, 0.2, 1.0))));
+	const int sample_rate = 24;
 
-	//auto r = std::cos(M_PI / 4.0);
+	auto image = Bitmap(width, height);
 
-	//hittables.add(std::make_shared<Sphere>(
-	//	Vec3(-r, 0, -1), r, std::make_shared<LambertianDiffuse>(Color::BLUE)));
+	const auto from = Vec3(13, 2, 3);
+	const auto at = Vec3(0, 0, 0);
+	const auto up = Vec3::unit_y;
 
-	//hittables.add(std::make_shared<Sphere>(
-	//	Vec3(r, 0, -1), r, std::make_shared<LambertianDiffuse>(Color::RED)));
+	auto camera = Camera::from_hfov(
+		from,
+		at,
+		up,
+		20.0,
+		aspect_ratio,
+		0.1,
+		10.0);
 
+	auto hittables = random_scene();
 
 	for (auto j = 0; j < height; ++j)
 	{
-		std::cerr << "\rScanlines remaining " << height - j << ' ' << std::flush;
+		std::cerr << "\rScanlines completed: " << j << " / " << height << "  (" << j * 100.0 / height  << "%) " << std::flush;
 
 		for (auto i = 0; i < width; ++i)
 		{
@@ -131,5 +149,5 @@ int main()
 
 	std::cerr << std::endl << "Completed" << std::endl;
 
-	image.save_image("image1.bmp");
+	image.save_image("image2.bmp");
 }

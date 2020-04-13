@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "hittable.hpp"
-#include "material.hpp"
+#include "IHittable.hpp"
+#include "IMaterial.hpp"
 
 
 class Sphere : public IHittable {

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "material.hpp"
+#include "IMaterial.hpp"
 
 
 class Metal : public IMaterial {
