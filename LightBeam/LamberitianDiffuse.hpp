@@ -1,6 +1,9 @@
 #pragma once
 
+
 #include "IMaterial.hpp"
+#include "ITexture.hpp"
+#include "ConstantTexture.hpp"
 
 
 namespace LightBeam
@@ -9,11 +12,15 @@ namespace LightBeam
 	{
 		class LambertianDiffuse : public IMaterial {
 		private:
-			Image::Color _albedo;
+			std::shared_ptr<const Textures::ITexture> _albedo;
 
 		public:
 			LambertianDiffuse(const Image::Color& albedo)
-				: _albedo{ albedo }
+				: _albedo{ std::make_shared<const Textures::ConstantTexture>(albedo) }
+			{}
+
+			LambertianDiffuse(std::shared_ptr<const Textures::ITexture> albedo)
+				: _albedo{ std::move(albedo) }
 			{}
 
 			bool scatter(
@@ -24,7 +31,7 @@ namespace LightBeam
 			) const {
 				auto scatter_direction = hit_record.normal() + Math::Vec3::random_unit_vector();
 				scattered = Rendering::Ray(hit_record.point(), scatter_direction, ray.time());
-				attenuation = _albedo;
+				attenuation = _albedo->value(hit_record.uv(), hit_record.point());
 				return true;
 			}
 		};

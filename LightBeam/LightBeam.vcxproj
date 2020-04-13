@@ -154,13 +154,16 @@
     <ClInclude Include="Bitmap.hpp" />
     <ClInclude Include="BoundingVolumeNode.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="CheckerTexture.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="ConstantTexture.hpp" />
     <ClInclude Include="Dielectric.hpp" />
     <ClInclude Include="HittableList.hpp" />
     <ClInclude Include="HitRecord.hpp" />
     <ClInclude Include="IHittable.hpp" />
     <ClInclude Include="IMaterial.hpp" />
+    <ClInclude Include="ITexture.hpp" />
     <ClInclude Include="LamberitianDiffuse.hpp" />
     <ClInclude Include="Metal.hpp" />
     <ClInclude Include="MovingSphere.hpp" />

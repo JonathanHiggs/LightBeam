@@ -37,7 +37,7 @@ namespace LightBeam
 			if (inside)
 				normal = -normal;
 
-			record = HitRecord(distance, point, normal, !inside, _material);
+			record = HitRecord(distance, point, normal, Vec2::zero, !inside, _material);
 
 			return true;
 		}

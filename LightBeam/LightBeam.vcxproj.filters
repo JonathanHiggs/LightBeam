@@ -91,6 +91,15 @@
     <ClInclude Include="BoundingVolumeNode.hpp">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="ITexture.hpp">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantTexture.hpp">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckerTexture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">
@@ -113,6 +122,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{acbd689f-c29a-41cf-bfe8-d5917cba8792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{52cfa63f-a996-4987-803c-0d4e69e47b64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

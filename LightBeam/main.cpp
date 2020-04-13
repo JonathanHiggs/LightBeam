@@ -4,6 +4,7 @@
 #include "Bitmap.hpp"
 #include "BoundingVolumeNode.hpp"
 #include "Camera.hpp"
+#include "CheckerTexture.h"
 #include "Color.hpp"
 #include "Constants.hpp"
 #include "Dielectric.hpp"
@@ -25,6 +26,7 @@ using namespace LightBeam::Math;
 using namespace LightBeam::Rendering;
 using namespace LightBeam::Scene;
 using namespace LightBeam::Shapes;
+using namespace LightBeam::Textures;
 
 
 Color ray_color(
@@ -58,8 +60,11 @@ Color ray_color(
 std::vector<std::shared_ptr<const IHittable>> random_scene() {
 	auto hittables = std::vector<std::shared_ptr<const IHittable>>();
 
+	auto checker = std::make_shared<const CheckersTexture>(
+		Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
+
 	hittables.emplace_back(std::make_shared<Sphere>(
-		Vec3(0, -1000, 0), 1000, std::make_shared<LambertianDiffuse>(Vec3(0.5, 0.6, 0.5))));
+		Vec3(0, -1000, 0), 1000, std::make_shared<LambertianDiffuse>(checker)));
 
 	for (int a = -11; a < 11; a++) {
 		for (int b = -11; b < 11; b++) {
@@ -114,11 +119,11 @@ std::vector<std::shared_ptr<const IHittable>> random_scene() {
 
 int main()
 {
-	const unsigned int width = 1000;
-	const unsigned int height = 500;
+	const unsigned int width = 2000;
+	const unsigned int height = 1000;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 8;
+	const int sample_rate = 10;
 
 	auto image = Bitmap(width, height);
 
@@ -132,10 +137,10 @@ int main()
 		up,
 		20.0,
 		aspect_ratio,
-		0.1,
+		0.02,
 		10.0,
 		0.0,
-		0.5);
+		0.1);
 
 	auto hittables = random_scene();
 	auto hittable_list = HittableList(hittables);
@@ -182,5 +187,5 @@ int main()
 
 	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
 
-	image.save_image("image10.bmp");
+	image.save_image("../images/image1.bmp");
 }
