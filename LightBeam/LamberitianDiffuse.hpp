@@ -16,7 +16,6 @@ namespace LightBeam
 				: _albedo{ albedo }
 			{}
 
-
 			bool scatter(
 				const Rendering::Ray& ray,
 				const Rendering::HitRecord& hit_record,
@@ -24,7 +23,7 @@ namespace LightBeam
 				Rendering::Ray& scattered
 			) const {
 				auto scatter_direction = hit_record.normal() + Math::Vec3::random_unit_vector();
-				scattered = Rendering::Ray(hit_record.point(), scatter_direction);
+				scattered = Rendering::Ray(hit_record.point(), scatter_direction, ray.time());
 				attenuation = _albedo;
 				return true;
 			}

@@ -138,9 +138,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="HittableList.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovingSphere.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
@@ -157,6 +159,7 @@
     <ClInclude Include="IMaterial.hpp" />
     <ClInclude Include="LamberitianDiffuse.hpp" />
     <ClInclude Include="Metal.hpp" />
+    <ClInclude Include="MovingSphere.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />

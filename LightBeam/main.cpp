@@ -8,10 +8,12 @@
 #include "HittableList.hpp"
 #include "LamberitianDiffuse.hpp"
 #include "Metal.hpp"
+#include "MovingSphere.hpp"
 #include "Sphere.hpp"
 
 
 // https://raytracing.github.io/books/RayTracingInOneWeekend.html
+// https://raytracing.github.io/books/RayTracingTheNextWeek.html
 
 
 using namespace LightBeam;
@@ -70,8 +72,13 @@ HittableList random_scene() {
 				if (choose_mat < 0.8) {
 					// diffuse
 					auto albedo = Vec3::random() * Vec3::random();
-					hittables.add(std::make_shared<Sphere>(
-						center, radius, std::make_shared<LambertianDiffuse>(albedo)));
+					hittables.add(std::make_shared<MovingSphere>(
+						center,
+						center + Vec3(0, Util::random_double(0, 0.5), 0),
+						0.0,
+						1.0,
+						radius,
+						std::make_shared<LambertianDiffuse>(albedo)));
 				}
 				else if (choose_mat < 0.95) {
 					// metal
@@ -105,11 +112,11 @@ HittableList random_scene() {
 
 int main()
 {
-	const unsigned int width = 3840;
-	const unsigned int height = 2160;
+	const unsigned int width = 800;
+	const unsigned int height = 400;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 24;
+	const int sample_rate = 4;
 
 	auto image = Bitmap(width, height);
 
@@ -124,13 +131,16 @@ int main()
 		20.0,
 		aspect_ratio,
 		0.1,
-		10.0);
+		10.0,
+		0.0,
+		0.5);
 
 	auto hittables = random_scene();
 
+	long long rays = 0;
 	for (auto j = 0; j < height; ++j)
 	{
-		std::cerr << "\rScanlines completed: " << j << " / " << height << "  (" << j * 100.0 / height  << "%) " << std::flush;
+		std::cerr << "\rScanlines completed: " << j << " / " << height << "  (" << j * 100.0 / height  << "%) " << '\t' << rays << " processed" << std::flush;
 
 		for (auto i = 0; i < width; ++i)
 		{
@@ -144,6 +154,7 @@ int main()
 				for (auto ix = 0; ix < sample_rate; ++ix)
 				{
 					samples++;
+					rays++;
 					auto id = double(ix) / double(sample_rate);
 
 					auto u = 2.0 * (((double(i) + id) / width) - 0.5);
@@ -161,5 +172,5 @@ int main()
 
 	std::cerr << std::endl << "Completed" << std::endl;
 
-	image.save_image("image2.bmp");
+	image.save_image("image4.bmp");
 }

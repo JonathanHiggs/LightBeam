@@ -30,7 +30,8 @@ namespace LightBeam
 				const Rendering::HitRecord& hit_record,
 				Image::Color& attenuation,
 				Rendering::Ray& scattered
-			) const {
+			) const
+			{
 				attenuation = Image::Color::WHITE;
 
 				auto etai_over_etat = hit_record.front_face()
@@ -45,14 +46,14 @@ namespace LightBeam
 				if (etai_over_etat * sin_theta > 1.0 || Util::random_double() < reflect_prod) {
 					// reflect
 					const auto reflected = Math::Vec3::reflect(unit_direction, hit_record.normal());
-					scattered = Rendering::Ray(hit_record.point(), reflected);
+					scattered = Rendering::Ray(hit_record.point(), reflected, ray.time());
 					return true;
 				}
 				else {
 					// refract
 					const auto refracted = Math::Vec3::refract(
 						unit_direction, hit_record.normal(), etai_over_etat);
-					scattered = Rendering::Ray(hit_record.point(), refracted);
+					scattered = Rendering::Ray(hit_record.point(), refracted, ray.time());
 				}
 
 				return true;

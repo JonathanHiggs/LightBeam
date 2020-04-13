@@ -17,6 +17,12 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingSphere.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -69,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="Utils.hpp">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingSphere.hpp">
+      <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

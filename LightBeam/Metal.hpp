@@ -29,7 +29,8 @@ namespace LightBeam
 
 				scattered = Rendering::Ray(
 					hit_record.point(),
-					reflected + _fuzz * Math::Vec3::random_in_unit_sphere());
+					reflected + _fuzz * Math::Vec3::random_in_unit_sphere(),
+					ray.time());
 
 				attenuation = _albedo;
 				return (Math::Vec3::dot(scattered.direction(), hit_record.normal()) > 0.0);
