@@ -1,86 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="vec3.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Vec3.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="sphere.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="HittableList.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="hittable_list.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Color.cpp">
+      <Filter>Image</Filter>
     </ClCompile>
-    <ClCompile Include="color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vec2.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bitmap.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IMaterial.hpp">
+      <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="vec3.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="LamberitianDiffuse.hpp">
+      <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="color.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Metal.hpp">
+      <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="ray.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Dielectric.hpp">
+      <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="sphere.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Vec2.hpp">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="hittable.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Vec3.hpp">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="hittable_list.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Ray.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="constants.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="HitRecord.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="camera.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="HittableList.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="random.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IHittable.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="utils.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Bitmap.hpp">
+      <Filter>Image</Filter>
     </ClInclude>
-    <ClInclude Include="material.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Color.hpp">
+      <Filter>Image</Filter>
     </ClInclude>
-    <ClInclude Include="hit_record.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="lamberitian_diffuse.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Sphere.hpp">
+      <Filter>Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="metal.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Constants.hpp">
+      <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="dielectric.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Random.hpp">
+      <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="vec2.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils.hpp">
+      <Filter>Util</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{5cc2ea22-b5f5-4a32-b0cd-ed22b1d6eb7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{63457dd2-618a-439e-a640-5932bd0463c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{9e94a08e-4b8f-41ad-b92b-ed7fed8cc508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{b18df81b-9aa0-4e14-a586-672f288ee9ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{fbee36bb-f57a-4e5d-bbad-8784db4f2ed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shapes">
+      <UniqueIdentifier>{6a5d4641-26a7-480b-97b7-ef4e642871fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{acbd689f-c29a-41cf-bfe8-d5917cba8792}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

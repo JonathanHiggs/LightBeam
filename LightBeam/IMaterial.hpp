@@ -6,12 +6,18 @@
 #include "Ray.hpp"
 
 
-class IMaterial {
-public:
-	virtual bool scatter(
-		const Ray& ray,
-		const HitRecord& hit_record,
-		Color& attenuation,
-		Ray& scattered
-	) const = 0;
-};
+namespace LightBeam
+{
+	namespace Materials
+	{
+		class IMaterial {
+		public:
+			virtual bool scatter(
+				const Rendering::Ray& ray,
+				const Rendering::HitRecord& hit_record,
+				Image::Color& attenuation,
+				Rendering::Ray& scattered
+			) const = 0;
+		};
+	}
+}

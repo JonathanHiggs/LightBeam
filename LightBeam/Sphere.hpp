@@ -6,32 +6,47 @@
 #include "IMaterial.hpp"
 
 
-class Sphere : public IHittable {
-private:
-	Vec3 _center;
-	double _radius;
-	std::shared_ptr<const IMaterial> _material;
+namespace LightBeam
+{
+	namespace Shapes
+	{
+		class Sphere : public Rendering::IHittable {
+		private:
+			Math::Vec3 _center;
+			double _radius;
+			std::shared_ptr<const Materials::IMaterial> _material;
 
-public:
-	Sphere(const Vec3& origin, double radius, std::shared_ptr<const IMaterial> material)
-		: _center{origin}
-		, _radius{radius}
-		, _material{std::move(material)}
-	{}
+		public:
+			Sphere(
+				const Math::Vec3& origin,
+				double radius,
+				std::shared_ptr<const Materials::IMaterial> material
+			)
+				: _center{ origin }
+				, _radius{ radius }
+				, _material{ std::move(material) }
+			{}
 
-	const Vec3& center() const noexcept { return _center; }
-	double radius() const noexcept { return _radius; }
-	const std::shared_ptr<const IMaterial> material() const noexcept { return _material; }
+			const Math::Vec3& center() const noexcept { return _center; }
+			double radius() const noexcept { return _radius; }
 
-	bool hit(
-		const Ray& ray,
-		double min_distance,
-		double max_distance,
-		HitRecord& record) const;
+			const std::shared_ptr<const Materials::IMaterial> material() const noexcept {
+				return _material;
+			}
 
-	Vec3 outward_normal(const Vec3& p) const {
-		return (p - _center).norm();
+			bool hit(
+				const Rendering::Ray& ray,
+				double min_distance,
+				double max_distance,
+				Rendering::HitRecord& record) const;
+
+			Math::Vec3 outward_normal(const Math::Vec3& p) const {
+				return (p - _center).norm();
+			}
+
+			Math::Vec3 inward_normal(const Math::Vec3& p) const {
+				return -outward_normal(p);
+			}
+		};
 	}
-
-	Vec3 inward_normal(const Vec3& p) const { return -outward_normal(p); }
-};
+}

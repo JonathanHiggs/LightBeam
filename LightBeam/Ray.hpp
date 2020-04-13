@@ -3,29 +3,35 @@
 #include "Vec3.hpp"
 
 
-class Ray {
-private:
-	Vec3 _origin;
-	Vec3 _direction;
+namespace LightBeam
+{
+	namespace Rendering
+	{
+		class Ray {
+		private:
+			Math::Vec3 _origin;
+			Math::Vec3 _direction;
 
 
-public:
-	Ray()
-		: _origin{Vec3::nan}
-		, _direction{Vec3::nan}
-	{}
+		public:
+			Ray()
+				: _origin{ Math::Vec3::nan }
+				, _direction{ Math::Vec3::nan }
+			{}
 
-	Ray(const Vec3 & origin, const Vec3 & direction)
-		: _origin{origin}
-		, _direction{direction}
-	{}
-
-
-	const Vec3& origin() const noexcept { return _origin; }
-	const Vec3& direction() const noexcept { return _direction; }
+			Ray(const Math::Vec3& origin, const Math::Vec3& direction)
+				: _origin{ origin }
+				, _direction{ direction }
+			{}
 
 
-	Vec3 at(double t) const {
-		return _origin + t * _direction;
+			const Math::Vec3& origin() const noexcept { return _origin; }
+			const Math::Vec3& direction() const noexcept { return _direction; }
+
+
+			Math::Vec3 at(double t) const {
+				return _origin + t * _direction;
+			}
+		};
 	}
-};
+}

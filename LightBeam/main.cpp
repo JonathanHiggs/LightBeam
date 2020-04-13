@@ -14,6 +14,15 @@
 // https://raytracing.github.io/books/RayTracingInOneWeekend.html
 
 
+using namespace LightBeam;
+using namespace LightBeam::Image;
+using namespace LightBeam::Materials;
+using namespace LightBeam::Math;
+using namespace LightBeam::Rendering;
+using namespace LightBeam::Scene;
+using namespace LightBeam::Shapes;
+
+
 Color ray_color(
 	const Ray& ray,
 	const IHittable& hittable,
@@ -25,7 +34,7 @@ Color ray_color(
 	if (depth >= max_depth)
 		return Color::BLACK;
 
-	if (hittable.hit(ray, 1e-10, infinity, hitRecord))
+	if (hittable.hit(ray, 1e-10, Util::infinity, hitRecord))
 	{
 		Ray scattered;
 		Color attenuation;
@@ -50,9 +59,12 @@ HittableList random_scene() {
 
 	for (int a = -11; a < 11; a++) {
 		for (int b = -11; b < 11; b++) {
-			const auto choose_mat = random_double();
+			const auto choose_mat = Util::random_double();
 			const auto radius = 0.2 + choose_mat / 10.0;
-			const auto center = Vec3(a + (0.8 - radius) * random_double(), radius, b + (0.8 - radius) * random_double());
+			const auto center = Vec3(
+				a + (0.8 - radius) * Util::random_double(),
+				radius,
+				b + (0.8 - radius) * Util::random_double());
 
 			if ((center - Vec3(4, 0.2, 0)).length() > 0.9) {
 				if (choose_mat < 0.8) {
@@ -64,13 +76,13 @@ HittableList random_scene() {
 				else if (choose_mat < 0.95) {
 					// metal
 					auto albedo = Vec3::random(0.5, 1);
-					auto fuzz = random_double(0, 0.5);
+					auto fuzz = Util::random_double(0, 0.5);
 					hittables.add(std::make_shared<Sphere>(
 						center, radius, std::make_shared<Metal>(albedo, fuzz)));
 				}
 				else {
 					// glass
-					auto refractive_index = random_double(1.4, 2.4);
+					auto refractive_index = Util::random_double(1.4, 2.4);
 					hittables.add(std::make_shared<Sphere>(
 						center, radius, std::make_shared<Dielectric>(refractive_index)));
 				}

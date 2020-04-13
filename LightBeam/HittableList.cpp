@@ -1,26 +1,32 @@
 #include "HittableList.hpp"
 
 
-bool HittableList::hit(
-	const Ray& ray,
-	double min_distance,
-	double max_distance,
-	HitRecord& record) const
+namespace LightBeam
 {
-	bool any_hits = false;
-	HitRecord temp;
-
-	for (const auto & hitable : _hittables)
+	namespace Rendering
 	{
-		if (!hitable->hit(ray, min_distance, max_distance, temp))
-			continue;
+		bool HittableList::hit(
+			const Ray& ray,
+			double min_distance,
+			double max_distance,
+			HitRecord& record) const
+		{
+			bool any_hits = false;
+			HitRecord temp;
 
-		if (any_hits && record.distance() < temp.distance())
-			continue;
+			for (const auto& hitable : _hittables)
+			{
+				if (!hitable->hit(ray, min_distance, max_distance, temp))
+					continue;
 
-		any_hits = true;
-		record = temp;
+				if (any_hits && record.distance() < temp.distance())
+					continue;
+
+				any_hits = true;
+				record = temp;
+			}
+
+			return any_hits;
+		}
 	}
-
-	return any_hits;
 }
