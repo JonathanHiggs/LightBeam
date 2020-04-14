@@ -16,8 +16,14 @@ namespace LightBeam
 				const Rendering::Ray& ray,
 				const Rendering::HitRecord& hit_record,
 				Image::Color& attenuation,
-				Rendering::Ray& scattered
-			) const = 0;
+				Rendering::Ray& scattered) const = 0;
+
+			virtual Image::Color emitted(
+				const Math::Vec2& uv,
+				const Math::Vec3& point) const
+			{
+				return Math::Vec3::zero;
+			}
 		};
 	}
 }

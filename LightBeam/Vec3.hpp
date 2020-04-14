@@ -8,7 +8,6 @@
 
 #include "Random.hpp"
 
-
 namespace LightBeam
 {
 	namespace Math

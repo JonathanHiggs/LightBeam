@@ -49,9 +49,12 @@ namespace LightBeam
 			double end_time,
 			AxisAlignedBoundingBox& bounding_box) const
 		{
+			auto abs_radius = std::abs(_radius);
+
 			bounding_box = AxisAlignedBoundingBox(
-				_center - Vec3(_radius, _radius, _radius),
-				_center + Vec3(_radius, _radius, _radius));
+				_center - Vec3(abs_radius, abs_radius, abs_radius),
+				_center + Vec3(abs_radius, abs_radius, abs_radius));
+
 			return true;
 		}
 

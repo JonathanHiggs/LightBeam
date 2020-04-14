@@ -32,21 +32,22 @@ namespace LightBeam
 				, _normal(Math::Vec3::nan)
 				, _uv{ Math::Vec2::nan }
 				, _front_face{ false }
+				, _material{ nullptr }
 			{}
 
-			HitRecord(
-				double distance,
-				const Math::Vec3& point,
-				const Math::Vec3& normal,
-				const Math::Vec2& uv,
-				bool front_face
-			)
-				: _distance{ distance }
-				, _point{ point }
-				, _normal{ normal }
-				, _uv{ uv }
-				, _front_face{ front_face }
-			{}
+			//HitRecord(
+			//	double distance,
+			//	const Math::Vec3& point,
+			//	const Math::Vec3& normal,
+			//	const Math::Vec2& uv,
+			//	bool front_face
+			//)
+			//	: _distance{ distance }
+			//	, _point{ point }
+			//	, _normal{ normal }
+			//	, _uv{ uv }
+			//	, _front_face{ front_face }
+			//{}
 
 			HitRecord(
 				double distance,

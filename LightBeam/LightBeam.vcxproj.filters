@@ -32,6 +32,12 @@
     <ClCompile Include="Perlin.cpp">
       <Filter>Noise</Filter>
     </ClCompile>
+    <ClCompile Include="DiffuseLight.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="XYRectangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -111,6 +117,12 @@
     </ClInclude>
     <ClInclude Include="ImageTexture.hpp">
       <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffuseLight.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="XYRectangle.hpp">
+      <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

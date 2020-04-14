@@ -30,13 +30,16 @@ namespace LightBeam
 				if (j < 0)
 					j = 0;
 
-				if (i > _bitmap->width() - 1)
-					i = _bitmap->width() - 1;
+				auto i2 = static_cast<unsigned int>(i);
+				auto j2 = static_cast<unsigned int>(j);
 
-				if (j > _bitmap->height() - 1)
-					j = _bitmap->height() - 1;
+				if (i2 > _bitmap->width() - 1)
+					i2 = _bitmap->width() - 1;
 
-				return Image::Color(_bitmap->get_pixel(i, j));
+				if (j2 > _bitmap->height() - 1)
+					j2 = _bitmap->height() - 1;
+
+				return Image::Color(_bitmap->get_pixel(i2, j2));
 			}
 		};
 
