@@ -31,6 +31,12 @@ namespace LightBeam
 				, _b{ v.z() }
 			{}
 
+			Color(const rgb_t& rgb)
+				: _r{ double(rgb.red) / 256.0 }
+				, _g{ double(rgb.green) / 256.0 }
+				, _b{ double(rgb.blue) / 256.0 }
+			{}
+
 			static const Color WHITE;
 			static const Color BLACK;
 			static const Color RED;

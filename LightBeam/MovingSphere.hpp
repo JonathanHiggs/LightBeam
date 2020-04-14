@@ -42,6 +42,8 @@ namespace LightBeam
 			Math::Vec3 outward_normal(const Math::Vec3& p, double time) const;
 
 			Math::Vec3 inward_normal(const Math::Vec3& p, double time) const;
+
+			Math::Vec2 uv_from_point(const Math::Vec3& point, double time) const;
 		};
 	}
 }

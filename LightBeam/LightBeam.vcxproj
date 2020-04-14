@@ -163,6 +163,7 @@
     <ClInclude Include="HittableList.hpp" />
     <ClInclude Include="HitRecord.hpp" />
     <ClInclude Include="IHittable.hpp" />
+    <ClInclude Include="ImageTexture.hpp" />
     <ClInclude Include="IMaterial.hpp" />
     <ClInclude Include="ITexture.hpp" />
     <ClInclude Include="LamberitianDiffuse.hpp" />

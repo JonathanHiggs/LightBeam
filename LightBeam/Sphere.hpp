@@ -45,13 +45,11 @@ namespace LightBeam
 				double end_time,
 				Rendering::AxisAlignedBoundingBox& bounding_box) const;
 
-			Math::Vec3 outward_normal(const Math::Vec3& p) const {
-				return (p - _center).norm();
-			}
+			Math::Vec3 outward_normal(const Math::Vec3& p) const;
 
-			Math::Vec3 inward_normal(const Math::Vec3& p) const {
-				return -outward_normal(p);
-			}
+			Math::Vec3 inward_normal(const Math::Vec3& p) const;
+
+			Math::Vec2 uv_from_point(const Math::Vec3& point) const;
 		};
 	}
 }

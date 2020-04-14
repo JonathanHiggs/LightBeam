@@ -9,6 +9,7 @@
 #include "Constants.hpp"
 #include "Dielectric.hpp"
 #include "HittableList.hpp"
+#include "ImageTexture.h"
 #include "LamberitianDiffuse.hpp"
 #include "Metal.hpp"
 #include "MovingSphere.hpp"
@@ -56,7 +57,7 @@ Color ray_color(
 
 	auto unit_direction = ray.direction().norm();
 	auto t = 0.5 * (unit_direction.y() + 1.0);
-	return Color(Vec3::interpolate(Vec3::one, Vec3(0.5, 0.7, 1.0), t));
+	return Color(Vec3::interpolate(Vec3::zero, Vec3(0.1, 0.1, 0.12), t));
 }
 
 
@@ -134,6 +135,23 @@ std::vector<std::shared_ptr<const IHittable>> two_perlin_spheres()
 	return shapes;
 }
 
+std::vector<std::shared_ptr<const IHittable>> earth()
+{
+	auto shapes = std::vector<std::shared_ptr<const IHittable>>();
+
+	shapes.emplace_back(std::make_shared<const Sphere>(
+		Vec3(0, -1001, 0), 1000, std::make_shared<Metal>(Vec3::one, 0.0)));
+
+	auto earth_texture =
+		std::make_shared<const ImageTexture>(
+			std::make_shared<const Bitmap>("earthmap.bmp"));
+
+	shapes.emplace_back(std::make_shared<const Sphere>(
+		Vec3(0, 1, 0), 2, std::make_shared<const LambertianDiffuse>(earth_texture)));
+
+	return shapes;
+}
+
 int main()
 {
 	const unsigned int width = 2000;
@@ -160,7 +178,8 @@ int main()
 		0.2);
 
 	//auto hittables = random_scene();
-	auto hittables = two_perlin_spheres();
+	//auto hittables = two_perlin_spheres();
+	auto hittables = earth();
 	auto bvn = BoundingVolumeNode(hittables, 0.0, 0.5);
 
 	auto begin_time = std::chrono::high_resolution_clock::now();
@@ -204,5 +223,5 @@ int main()
 
 	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
 
-	image.save_image("../images/image038.bmp");
+	image.save_image("../images/image040.bmp");
 }

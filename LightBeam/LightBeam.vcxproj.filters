@@ -109,6 +109,9 @@
     <ClInclude Include="NoiseTexture.hpp">
       <Filter>Textures</Filter>
     </ClInclude>
+    <ClInclude Include="ImageTexture.hpp">
+      <Filter>Textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">

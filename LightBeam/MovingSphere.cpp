@@ -56,7 +56,9 @@ namespace LightBeam
 			if (inside)
 				normal = -normal;
 
-			record = HitRecord(distance, point, normal, Vec2::zero, !inside, _material);
+			const auto uv = uv_from_point(point, ray.time());
+
+			record = HitRecord(distance, point, normal, uv, !inside, _material);
 
 			return true;
 		}
@@ -89,6 +91,17 @@ namespace LightBeam
 
 		Vec3 MovingSphere::inward_normal(const Vec3& p, double time) const {
 			return -outward_normal(p, time);
+		}
+
+		Vec2 MovingSphere::uv_from_point(const Math::Vec3& point, double time) const
+		{
+			auto relative_point = (point - center(time)) / _radius;
+			auto phi = std::atan2(relative_point.z(), relative_point.x());
+			auto theta = std::asin(relative_point.y());
+
+			return Math::Vec2(
+				1.0 - (phi + M_PI) / (2 * M_PI),
+				(theta + M_PI / 2) / M_PI);
 		}
 	}
 }
