@@ -4,7 +4,7 @@
 #include "Bitmap.hpp"
 #include "BoundingVolumeNode.hpp"
 #include "Camera.hpp"
-#include "CheckerTexture.h"
+#include "CheckerTexture.hpp"
 #include "Color.hpp"
 #include "Constants.hpp"
 #include "Dielectric.hpp"
@@ -12,6 +12,8 @@
 #include "LamberitianDiffuse.hpp"
 #include "Metal.hpp"
 #include "MovingSphere.hpp"
+#include "NoiseTexture.hpp"
+#include "Perlin.hpp"
 #include "Sphere.hpp"
 
 
@@ -23,6 +25,7 @@ using namespace LightBeam;
 using namespace LightBeam::Image;
 using namespace LightBeam::Materials;
 using namespace LightBeam::Math;
+using namespace LightBeam::Noise;
 using namespace LightBeam::Rendering;
 using namespace LightBeam::Scene;
 using namespace LightBeam::Shapes;
@@ -116,6 +119,20 @@ std::vector<std::shared_ptr<const IHittable>> random_scene() {
 	return hittables;
 }
 
+std::vector<std::shared_ptr<const IHittable>> two_perlin_spheres()
+{
+	auto shapes = std::vector<std::shared_ptr<const IHittable>>();
+
+	auto pertext = std::make_shared<const NoiseTexture>(Perlin(), 10.0);
+
+	shapes.emplace_back(std::make_shared<const Sphere>(
+		Vec3(0, -1000, 0), 1000, std::make_shared<LambertianDiffuse>(pertext)));
+
+	shapes.emplace_back(std::make_shared<const Sphere>(
+		Vec3(0, 2, 0), 2, std::make_shared<const LambertianDiffuse>(pertext)));
+
+	return shapes;
+}
 
 int main()
 {
@@ -123,7 +140,7 @@ int main()
 	const unsigned int height = 1000;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 10;
+	const int sample_rate = 4;
 
 	auto image = Bitmap(width, height);
 
@@ -137,13 +154,13 @@ int main()
 		up,
 		20.0,
 		aspect_ratio,
-		0.02,
+		0.05,
 		10.0,
 		0.0,
-		0.1);
+		0.2);
 
-	auto hittables = random_scene();
-	auto hittable_list = HittableList(hittables);
+	//auto hittables = random_scene();
+	auto hittables = two_perlin_spheres();
 	auto bvn = BoundingVolumeNode(hittables, 0.0, 0.5);
 
 	auto begin_time = std::chrono::high_resolution_clock::now();
@@ -151,7 +168,7 @@ int main()
 	long long rays = 0;
 	for (auto j = 0; j < height; ++j)
 	{
-		std::cerr << "\rScanlines completed: " << j << " / " << height << " : " << j * 100.0 / height  << "% : " << rays << " rays processed" << std::flush;
+		std::cerr << "\rScanlines completed: " << j << " / " << height << " : " << j * 100.0 / height  << "% : " << rays / 1000000 << "M rays processed" << std::flush;
 
 		for (auto i = 0; i < width; ++i)
 		{
@@ -187,5 +204,5 @@ int main()
 
 	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
 
-	image.save_image("../images/image1.bmp");
+	image.save_image("../images/image038.bmp");
 }

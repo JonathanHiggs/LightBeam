@@ -145,6 +145,7 @@
     <ClCompile Include="HittableList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingSphere.cpp" />
+    <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
@@ -154,7 +155,7 @@
     <ClInclude Include="Bitmap.hpp" />
     <ClInclude Include="BoundingVolumeNode.hpp" />
     <ClInclude Include="Camera.hpp" />
-    <ClInclude Include="CheckerTexture.h" />
+    <ClInclude Include="CheckerTexture.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="ConstantTexture.hpp" />
@@ -167,6 +168,8 @@
     <ClInclude Include="LamberitianDiffuse.hpp" />
     <ClInclude Include="Metal.hpp" />
     <ClInclude Include="MovingSphere.hpp" />
+    <ClInclude Include="NoiseTexture.hpp" />
+    <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />

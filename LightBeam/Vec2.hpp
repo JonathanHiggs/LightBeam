@@ -28,6 +28,8 @@ namespace LightBeam
 			static const Vec2 unit_x;
 			static const Vec2 unit_y;
 
+			static const size_t dimensions = 2;
+
 
 			double x() const noexcept { return _data[0]; }
 			double y() const noexcept { return _data[1]; }

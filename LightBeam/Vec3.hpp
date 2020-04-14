@@ -36,6 +36,8 @@ namespace LightBeam
 			static const Vec3 unit_y;
 			static const Vec3 unit_z;
 
+			static const size_t dimensions = 3;
+
 
 			double x() const noexcept { return _data[0]; }
 			double y() const noexcept { return _data[1]; }

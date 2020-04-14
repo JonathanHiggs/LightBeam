@@ -29,6 +29,9 @@
     <ClCompile Include="BoundingVolumeNode.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Perlin.cpp">
+      <Filter>Noise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -97,7 +100,13 @@
     <ClInclude Include="ConstantTexture.hpp">
       <Filter>Textures</Filter>
     </ClInclude>
-    <ClInclude Include="CheckerTexture.h">
+    <ClInclude Include="Perlin.hpp">
+      <Filter>Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckerTexture.hpp">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="NoiseTexture.hpp">
       <Filter>Textures</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,6 +134,9 @@
     </Filter>
     <Filter Include="Textures">
       <UniqueIdentifier>{52cfa63f-a996-4987-803c-0d4e69e47b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Noise">
+      <UniqueIdentifier>{95d410ed-914e-448d-90b3-4af14d82b19b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

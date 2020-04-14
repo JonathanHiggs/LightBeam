@@ -44,6 +44,7 @@ namespace LightBeam
 
 
 			friend Color operator * (double t, const Color& c);
+			friend Color operator * (const Color& c, double t);
 			friend Color operator + (const Color& b, const Color& c);
 			friend Color operator * (const Color& v, const Color& c);
 
@@ -80,6 +81,10 @@ namespace LightBeam
 
 
 		inline Color operator *(double t, const Color& c) {
+			return Color(t * c._r, t * c._g, t * c._b);
+		}
+
+		inline Color operator *(const Color& c, double t) {
 			return Color(t * c._r, t * c._g, t * c._b);
 		}
 
