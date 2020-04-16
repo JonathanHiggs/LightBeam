@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
     <ClCompile Include="BoundingVolumeNode.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
@@ -151,11 +152,14 @@
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
     <ClCompile Include="XYRectangle.cpp" />
+    <ClCompile Include="XZRectangle.cpp" />
+    <ClCompile Include="YZRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AxisAlignedBoundingBox.hpp" />
     <ClInclude Include="Bitmap.hpp" />
     <ClInclude Include="BoundingVolumeNode.hpp" />
+    <ClInclude Include="Box.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CheckerTexture.hpp" />
     <ClInclude Include="Color.hpp" />
@@ -181,6 +185,8 @@
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="XYRectangle.hpp" />
+    <ClInclude Include="XZRectangle.hpp" />
+    <ClInclude Include="YZRectangle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

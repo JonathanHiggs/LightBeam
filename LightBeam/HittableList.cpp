@@ -14,9 +14,9 @@ namespace LightBeam
 			bool any_hits = false;
 			HitRecord temp;
 
-			for (const auto& hitable : _hittables)
+			for (const auto& hittable : _hittables)
 			{
-				if (!hitable->hit(ray, min_distance, max_distance, temp))
+				if (!hittable->hit(ray, min_distance, max_distance, temp))
 					continue;
 
 				if (any_hits && record.distance() < temp.distance())

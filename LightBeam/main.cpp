@@ -3,6 +3,7 @@
 
 #include "Bitmap.hpp"
 #include "BoundingVolumeNode.hpp"
+#include "Box.hpp"
 #include "Camera.hpp"
 #include "CheckerTexture.hpp"
 #include "Color.hpp"
@@ -18,6 +19,8 @@
 #include "Perlin.hpp"
 #include "Sphere.hpp"
 #include "XYRectangle.hpp"
+#include "XZRectangle.hpp"
+#include "YZRectangle.hpp"
 
 
 // https://raytracing.github.io/books/RayTracingInOneWeekend.html
@@ -59,7 +62,11 @@ Color ray_color(
 	if (!hit_record.meterial()->scatter(ray, hit_record, attenuation, scattered))
 		return emitted;
 
-	return attenuation * ray_color(scattered, background, hittable, max_depth, ++depth);
+	Color scattered_color = ray_color(scattered, background, hittable, max_depth, ++depth);
+	//if (scattered_color == Color::BLACK || scattered_color == background)
+	//	return attenuation * 0.05;
+
+	return attenuation * scattered_color;
 }
 
 
@@ -181,32 +188,64 @@ std::vector<std::shared_ptr<const IHittable>> lighting()
 	return shapes;
 }
 
+std::vector<std::shared_ptr<const IHittable>> cornell_box()
+{
+	auto shapes = std::vector<std::shared_ptr<const IHittable>>();
+
+	auto red = std::make_shared<const LambertianDiffuse>(Color(0.65, 0.05, 0.05));
+	auto white = std::make_shared<const LambertianDiffuse>(Color(0.73, 0.73, 0.73));
+	auto green = std::make_shared<const LambertianDiffuse>(Color(0.12, 0.45, 0.15));
+	auto light = std::make_shared<const DiffuseLight>(Color(15, 15, 15));
+
+	shapes.emplace_back(std::make_shared<const YZRectangle>(0, 555, 0, 555, 555, green));	// left
+	shapes.emplace_back(std::make_shared<const YZRectangle>(0, 555, 0, 555, 0,   red));		// right
+	shapes.emplace_back(std::make_shared<const XZRectangle>(0, 555, 0, 555, 0,   white));	// floor
+	shapes.emplace_back(std::make_shared<const XZRectangle>(0, 555, 0, 555, 555, white));	// top
+	shapes.emplace_back(std::make_shared<const XYRectangle>(0, 555, 0, 555, 555, white));	// back
+
+	shapes.emplace_back(std::make_shared<const XZRectangle>(213, 343, 227, 332, 554, light));	// light
+
+	shapes.emplace_back(std::make_shared<const Box>(Vec3(130, 0,  65), Vec3(295, 165, 230), white));
+	shapes.emplace_back(std::make_shared<const Box>(Vec3(265, 0, 295), Vec3(430, 330, 460), white));
+
+	return shapes;
+}
+
+
 int main()
 {
-	const unsigned int width = 3840;
-	const unsigned int height = 2160;
+	const unsigned int width = 384 * 10;
+	const unsigned int height = 216 * 10;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 24;
+	const int sample_rate = 32;
 
 	auto image = Bitmap(width, height);
 
-	const auto from = Vec3(13, 2, 3);
-	const auto at = Vec3(0, 1, 0);
+	//const auto from = Vec3(13, 2, 3);
+	//const auto at = Vec3(0, 1, 0);
+	//const auto up = Vec3::unit_y;
+
+	//auto camera = Camera::from_hfov(
+	//	from,
+	//	at,
+	//	up,
+	//	30.0,
+	//	aspect_ratio,
+	//	0.05,
+	//	10.0,
+	//	0.0,
+	//	0.2);
+
+	const auto from = Vec3(278, 278, -800);
+	const auto at = Vec3(278, 278, 0);
 	const auto up = Vec3::unit_y;
 
-	auto camera = Camera::from_hfov(
-		from,
-		at,
-		up,
-		30.0,
-		aspect_ratio,
-		0.05,
-		10.0,
-		0.0,
-		0.2);
+	auto camera = Camera::from_vfov(
+		from, at, up, 20.0, aspect_ratio, 0.0, 10.0, 0.0, 1.0);
 
-	auto hittables = lighting();
+	auto hittables = cornell_box();
+	//auto list = HittableList(hittables);
 	auto bvn = BoundingVolumeNode(hittables, 0.0, 0.5);
 
 	auto begin_time = std::chrono::high_resolution_clock::now();
@@ -235,7 +274,7 @@ int main()
 					auto v = 2.0 * (0.5 - (double(j) + jd) / height);
 
 					auto ray = camera.get_ray(u, v);
-					col += ray_color(ray, Color(0.01, 0.01, 0.01), bvn);
+					col += ray_color(ray, Color(0.001, 0.001, 0.001), bvn);
 				}
 			}
 
@@ -250,5 +289,5 @@ int main()
 
 	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
 
-	image.save_image("../images/image044.bmp");
+	image.save_image("../images/image058.bmp");
 }

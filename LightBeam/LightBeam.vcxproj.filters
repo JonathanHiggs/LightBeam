@@ -38,6 +38,15 @@
     <ClCompile Include="XYRectangle.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="XZRectangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="YZRectangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -122,6 +131,15 @@
       <Filter>Materials</Filter>
     </ClInclude>
     <ClInclude Include="XYRectangle.hpp">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="XZRectangle.hpp">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="YZRectangle.hpp">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.hpp">
       <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
