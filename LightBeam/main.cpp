@@ -18,8 +18,10 @@
 #include "NoiseTexture.hpp"
 #include "Perlin.hpp"
 #include "Sphere.hpp"
+#include "Translate.hpp"
 #include "XYRectangle.hpp"
 #include "XZRectangle.hpp"
+#include "YRotation.hpp"
 #include "YZRectangle.hpp"
 
 
@@ -205,8 +207,15 @@ std::vector<std::shared_ptr<const IHittable>> cornell_box()
 
 	shapes.emplace_back(std::make_shared<const XZRectangle>(213, 343, 227, 332, 554, light));	// light
 
-	shapes.emplace_back(std::make_shared<const Box>(Vec3(130, 0,  65), Vec3(295, 165, 230), white));
-	shapes.emplace_back(std::make_shared<const Box>(Vec3(265, 0, 295), Vec3(430, 330, 460), white));
+	shapes.emplace_back(
+		std::make_shared<const Translate>(Vec3(265, 0, 295),
+			std::make_shared<const YRotation>(15,
+				std::make_shared<const Box>(Vec3(0, 0, 0), Vec3(165, 330, 165), white))));
+
+	shapes.emplace_back(
+		std::make_shared<const Translate>(Vec3(130, 0, 65),
+			std::make_shared<const YRotation>(-18,
+				std::make_shared<const Box>(Vec3(0, 0, 0), Vec3(165, 165, 165), white))));
 
 	return shapes;
 }
@@ -214,11 +223,11 @@ std::vector<std::shared_ptr<const IHittable>> cornell_box()
 
 int main()
 {
-	const unsigned int width = 384 * 10;
-	const unsigned int height = 216 * 10;
+	const unsigned int width = 384 * 4;
+	const unsigned int height = 216 * 4;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 32;
+	const int sample_rate = 36;
 
 	auto image = Bitmap(width, height);
 
@@ -289,5 +298,5 @@ int main()
 
 	std::cerr << std::endl << "Completed in " << seconds << "s" << std::endl;
 
-	image.save_image("../images/image058.bmp");
+	image.save_image("../images/image059.bmp");
 }

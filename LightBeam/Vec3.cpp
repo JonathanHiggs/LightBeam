@@ -12,6 +12,15 @@ namespace LightBeam
 		const Vec3 Vec3::unit_y = Vec3(0, 1, 0);
 		const Vec3 Vec3::unit_z = Vec3(0, 0, 1);
 
+		const Vec3 Vec3::negative_infinity = -Vec3(
+			std::numeric_limits<double>::infinity(),
+			std::numeric_limits<double>::infinity(),
+			std::numeric_limits<double>::infinity());
+
+		const Vec3 Vec3::positive_infinity = Vec3(
+			std::numeric_limits<double>::infinity(),
+			std::numeric_limits<double>::infinity(),
+			std::numeric_limits<double>::infinity());
 
 		std::ostream& operator<< (std::ostream& out, const Vec3& v) {
 			return out << v._data[0] << ' ' << v._data[1] << ' ' << v._data[2];

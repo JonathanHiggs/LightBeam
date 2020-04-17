@@ -149,10 +149,12 @@
     <ClCompile Include="MovingSphere.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Translate.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
     <ClCompile Include="XYRectangle.cpp" />
     <ClCompile Include="XZRectangle.cpp" />
+    <ClCompile Include="YRotation.cpp" />
     <ClCompile Include="YZRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,11 +183,13 @@
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />
+    <ClInclude Include="Translate.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="XYRectangle.hpp" />
     <ClInclude Include="XZRectangle.hpp" />
+    <ClInclude Include="YRotation.hpp" />
     <ClInclude Include="YZRectangle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

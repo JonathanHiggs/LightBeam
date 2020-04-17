@@ -34,6 +34,8 @@ namespace LightBeam
 			static const Vec3 unit_x;
 			static const Vec3 unit_y;
 			static const Vec3 unit_z;
+			static const Vec3 negative_infinity;
+			static const Vec3 positive_infinity;
 
 			static const size_t dimensions = 3;
 

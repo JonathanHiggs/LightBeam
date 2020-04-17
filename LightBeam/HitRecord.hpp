@@ -35,20 +35,6 @@ namespace LightBeam
 				, _material{ nullptr }
 			{}
 
-			//HitRecord(
-			//	double distance,
-			//	const Math::Vec3& point,
-			//	const Math::Vec3& normal,
-			//	const Math::Vec2& uv,
-			//	bool front_face
-			//)
-			//	: _distance{ distance }
-			//	, _point{ point }
-			//	, _normal{ normal }
-			//	, _uv{ uv }
-			//	, _front_face{ front_face }
-			//{}
-
 			HitRecord(
 				double distance,
 				const Math::Vec3& point,
