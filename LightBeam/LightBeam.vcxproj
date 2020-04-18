@@ -143,8 +143,10 @@
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="ConstantMedium.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
     <ClCompile Include="HittableList.cpp" />
+    <ClCompile Include="Isotropic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingSphere.cpp" />
     <ClCompile Include="Perlin.cpp" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CheckerTexture.hpp" />
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="ConstantMedium.hpp" />
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="ConstantTexture.hpp" />
     <ClInclude Include="Dielectric.hpp" />
@@ -174,8 +177,10 @@
     <ClInclude Include="IHittable.hpp" />
     <ClInclude Include="ImageTexture.hpp" />
     <ClInclude Include="IMaterial.hpp" />
+    <ClInclude Include="Isotropic.hpp" />
     <ClInclude Include="ITexture.hpp" />
     <ClInclude Include="LamberitianDiffuse.hpp" />
+    <ClInclude Include="memory.hpp" />
     <ClInclude Include="Metal.hpp" />
     <ClInclude Include="MovingSphere.hpp" />
     <ClInclude Include="NoiseTexture.hpp" />
@@ -183,6 +188,7 @@
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />
+    <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Translate.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vec2.hpp" />

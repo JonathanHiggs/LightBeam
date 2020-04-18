@@ -53,6 +53,12 @@
     <ClCompile Include="YRotation.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantMedium.cpp">
+      <Filter>Volumes</Filter>
+    </ClCompile>
+    <ClCompile Include="Isotropic.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -154,6 +160,18 @@
     <ClInclude Include="YRotation.hpp">
       <Filter>Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantMedium.hpp">
+      <Filter>Volumes</Filter>
+    </ClInclude>
+    <ClInclude Include="Isotropic.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">
@@ -182,6 +200,9 @@
     </Filter>
     <Filter Include="Noise">
       <UniqueIdentifier>{95d410ed-914e-448d-90b3-4af14d82b19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Volumes">
+      <UniqueIdentifier>{5ea1d531-7423-4633-b5c4-69284cdb8920}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

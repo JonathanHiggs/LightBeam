@@ -52,6 +52,10 @@ namespace LightBeam
 			{}
 
 			double distance() const noexcept { return _distance; }
+			HitRecord distance(double distance) const noexcept {
+				return HitRecord(distance, _point, _normal, _uv, _front_face, _material);
+			}
+
 			const Math::Vec3& point() const noexcept { return _point; }
 			const Math::Vec3& normal() const noexcept { return _normal; }
 			const Math::Vec2& uv() const noexcept { return _uv; }

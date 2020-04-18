@@ -17,6 +17,8 @@ namespace LightBeam
 		public:
 			DiffuseLight(const Image::Color& color);
 
+			DiffuseLight(const Image::Color& color, double intensity);
+
 			DiffuseLight(std::shared_ptr<const Textures::ITexture> emit);
 
 			bool scatter(

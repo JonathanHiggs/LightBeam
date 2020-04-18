@@ -18,6 +18,10 @@ namespace LightBeam
 			: DiffuseLight(std::make_shared<const ConstantTexture>(color))
 		{}
 
+		DiffuseLight::DiffuseLight(const Image::Color& color, double intensity)
+			: DiffuseLight(color* intensity)
+		{}
+
 		DiffuseLight::DiffuseLight(std::shared_ptr<const ITexture> emit)
 			: _emit{ std::move(emit) }
 		{}

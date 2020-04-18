@@ -19,6 +19,10 @@ namespace LightBeam
 
 		public:
 			BoundingVolumeNode(
+				std::shared_ptr<const BoundingVolumeNode> left,
+				std::shared_ptr<const BoundingVolumeNode> right);
+
+			BoundingVolumeNode(
 				std::vector<std::shared_ptr<const IHittable>>& hittables,
 				double begin_time,
 				double end_time);

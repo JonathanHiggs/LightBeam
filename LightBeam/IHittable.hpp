@@ -2,6 +2,7 @@
 
 #include "AxisAlignedBoundingBox.hpp"
 #include "HitRecord.hpp"
+#include "memory.hpp"
 
 
 namespace LightBeam
@@ -22,5 +23,8 @@ namespace LightBeam
 				double end_time,
 				AxisAlignedBoundingBox& bounding_box) const = 0;
 		};
+
+		DECLARE_STD_PTR(IHittable)
+
 	}
 }

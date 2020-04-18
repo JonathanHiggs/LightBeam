@@ -9,6 +9,19 @@ namespace LightBeam
 {
 	namespace Rendering
 	{
+		BoundingVolumeNode::BoundingVolumeNode(
+			std::shared_ptr<const BoundingVolumeNode> left,
+			std::shared_ptr<const BoundingVolumeNode> right
+		)
+			: _left{ std::move(left) }
+			, _right{ std::move(right) }
+		{
+			AxisAlignedBoundingBox left_box, right_box;
+			_left->bounding_box(0.0, 1.0, left_box);
+			_right->bounding_box(0.0, 1.0, right_box);
+
+			_box = AxisAlignedBoundingBox::surrounding_box(left_box, right_box);
+		}
 
 		BoundingVolumeNode::BoundingVolumeNode(
 			std::vector<std::shared_ptr<const IHittable>>& hittables,

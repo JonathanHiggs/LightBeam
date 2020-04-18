@@ -3,26 +3,25 @@
 
 #include "IHittable.hpp"
 #include "IMaterial.hpp"
-#include "HittableList.hpp"
+#include "ITexture.hpp"
 
 
 namespace LightBeam
 {
-	namespace Shapes
+	namespace Volumes
 	{
 
-		class Box : public Rendering::IHittable
+		class ConstantMedium : public Rendering::IHittable
 		{
-		private:
-			Math::Vec3 _min;
-			Math::Vec3 _max;
-			Rendering::HittableList _sides;
-
 		public:
-			Box(
-				const Math::Vec3& p0,
-				const Math::Vec3& p1,
-				Materials::IMaterialCPtr material);
+			Rendering::IHittableCPtr boundary;
+			Materials::IMaterialCPtr phase_function;
+			double neg_inv_density;
+
+			ConstantMedium(
+				Rendering::IHittableCPtr boundary,
+				double density,
+				Textures::ITextureCPtr texture);
 
 			bool hit(
 				const Rendering::Ray& ray,
@@ -38,3 +37,5 @@ namespace LightBeam
 
 	}
 }
+
+

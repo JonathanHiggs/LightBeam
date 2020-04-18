@@ -5,11 +5,14 @@
 #include "IHittable.hpp"
 #include "Ray.hpp"
 
+#include "memory.hpp"
+
 
 namespace LightBeam
 {
 	namespace Materials
 	{
+
 		class IMaterial {
 		public:
 			virtual bool scatter(
@@ -25,5 +28,8 @@ namespace LightBeam
 				return Math::Vec3::zero;
 			}
 		};
+
+		DECLARE_STD_PTR(IMaterial)
+
 	}
 }
