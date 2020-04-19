@@ -21,7 +21,8 @@ namespace LightBeam
 				const Rendering::Ray& ray,
 				const Rendering::HitRecord& hit_record,
 				Image::Color& attenuation,
-				Rendering::Ray& scattered) const;
+				Rendering::Ray& scattered,
+				double& pdf) const;
 		};
 
 	}

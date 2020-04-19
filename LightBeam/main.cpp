@@ -30,6 +30,7 @@
 
 // https://raytracing.github.io/books/RayTracingInOneWeekend.html
 // https://raytracing.github.io/books/RayTracingTheNextWeek.html
+// https://raytracing.github.io/books/RayTracingTheRestOfYourLife.html
 
 
 using namespace LightBeam;
@@ -61,23 +62,25 @@ Color ray_color(
 		return background;
 
 	Ray scattered;
-	Color attenuation;
+
 	Color emitted = !!hit_record.meterial()
 		? hit_record.meterial()->emitted(hit_record.uv(), hit_record.point())
 		: Color::BLACK;
 
-	if (!hit_record.meterial()->scatter(ray, hit_record, attenuation, scattered))
+	double pdf;
+	Color albedo;
+
+	if (!hit_record.meterial()->scatter(ray, hit_record, albedo, scattered, pdf))
 		return emitted;
 
+	double scattered_pdf = hit_record.meterial()->scattering_pdf(ray, hit_record, scattered);
 	Color scattered_color = ray_color(scattered, background, hittable, max_depth, ++depth);
-	//if (scattered_color == Color::BLACK || scattered_color == background)
-	//	return attenuation * 0.05;
 
-	return attenuation * scattered_color;
+	return emitted + albedo * scattered_pdf * scattered_color / pdf;
 }
 
 
-std::vector<IHittableCPtr> random_scene()
+BoundingVolumeNode random_scene()
 {
 	auto hittables = std::vector<IHittableCPtr>();
 
@@ -134,11 +137,11 @@ std::vector<IHittableCPtr> random_scene()
 	hittables.push_back(std::make_shared<Sphere>(
 		Vec3(4, 1, 0), 1.0, std::make_shared<Metal>(Vec3(0.7, 0.6, 0.5), 0.0)));
 
-	return hittables;
+	return BoundingVolumeNode(hittables, 0.0, 1.0);
 }
 
 
-std::vector<IHittableCPtr> two_perlin_spheres()
+BoundingVolumeNode two_perlin_spheres()
 {
 	auto shapes = std::vector<IHittableCPtr>();
 
@@ -150,11 +153,11 @@ std::vector<IHittableCPtr> two_perlin_spheres()
 	shapes.push_back(std::make_shared<const Sphere>(
 		Vec3(0, 2, 0), 2, std::make_shared<const LambertianDiffuse>(pertext)));
 
-	return shapes;
+	return BoundingVolumeNode(shapes, 0.0, 1.0);
 }
 
 
-std::vector<IHittableCPtr> earth()
+BoundingVolumeNode earth()
 {
 	auto shapes = std::vector<IHittableCPtr>();
 
@@ -168,11 +171,11 @@ std::vector<IHittableCPtr> earth()
 	shapes.push_back(std::make_shared<const Sphere>(
 		Vec3(0, 1, 0), 2, std::make_shared<const LambertianDiffuse>(earth_texture)));
 
-	return shapes;
+	return BoundingVolumeNode(shapes, 0.0, 1.0);
 }
 
 
-std::vector<IHittableCPtr> lighting()
+BoundingVolumeNode lighting()
 {
 	auto shapes = std::vector<IHittableCPtr>();
 
@@ -196,11 +199,11 @@ std::vector<IHittableCPtr> lighting()
 	shapes.push_back(std::make_shared<const Sphere>(
 		Vec3(0, 5, 0), -0.8, std::make_shared<const DiffuseLight>(Color(0.90, 0.90, 6.0))));
 
-	return shapes;
+	return BoundingVolumeNode(shapes, 0.0, 1.0);
 }
 
 
-std::vector<IHittableCPtr> cornell_box()
+BoundingVolumeNode cornell_box()
 {
 	auto shapes = std::vector<IHittableCPtr>();
 
@@ -227,11 +230,11 @@ std::vector<IHittableCPtr> cornell_box()
 			std::make_shared<const YRotation>(-18,
 				std::make_shared<const Box>(Vec3(0, 0, 0), Vec3(165, 165, 165), white))));
 
-	return shapes;
+	return BoundingVolumeNode(shapes, 0.0, 1.0);
 }
 
 
-std::vector<IHittableCPtr> cornell_smoke()
+BoundingVolumeNode cornell_smoke()
 {
 	auto shapes = std::vector<IHittableCPtr>();
 
@@ -266,7 +269,7 @@ std::vector<IHittableCPtr> cornell_smoke()
 		std::make_shared<const ConstantMedium>(
 			box2, 0.1, std::make_shared<const ConstantTexture>(Image::Color::WHITE)));
 
-	return shapes;
+	return BoundingVolumeNode(shapes, 0.0, 1.0);
 }
 
 
@@ -403,18 +406,16 @@ Camera final_camera(double aspect_ratio)
 
 int main()
 {
-	const unsigned int width = 384 * 10;
-	const unsigned int height = 216 * 10;
+	const unsigned int width = 500; // 384 * 2;
+	const unsigned int height = 500; // 216 * 2;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 32;
+	const int sample_rate = 24;
 
 	auto image = Bitmap(width, height);
 
-	//auto bvn = BoundingVolumeNode(cornell_smoke(), 0.0, 0.5);
-
-	const auto camera = final_camera(aspect_ratio);
-	auto bvn = final_scene();
+	const auto camera = cornell_camera(aspect_ratio);
+	auto bvn = cornell_box();
 
 	{
 		Timer timer(&std::cerr, "Rendering");
@@ -457,6 +458,6 @@ int main()
 
 	{
 		Timer timer(&std::cerr, "Saving");
-		image.save_image("../images/image076.bmp");
+		image.save_image("../images/image080.bmp");
 	}
 }

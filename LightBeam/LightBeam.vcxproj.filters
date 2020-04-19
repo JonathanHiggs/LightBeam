@@ -59,6 +59,18 @@
     <ClCompile Include="Isotropic.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
+    <ClCompile Include="Dielectric.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="LamberitianDiffuse.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Metal.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoNormalBasis.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -171,6 +183,9 @@
     </ClInclude>
     <ClInclude Include="Isotropic.hpp">
       <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoNormalBasis.hpp">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

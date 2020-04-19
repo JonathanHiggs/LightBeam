@@ -53,6 +53,7 @@ namespace LightBeam
 			friend Color operator * (const Color& c, double t);
 			friend Color operator + (const Color& b, const Color& c);
 			friend Color operator * (const Color& v, const Color& c);
+			friend Color operator / (const Color& c, double t);
 			friend bool operator ==(const Color& a, const Color& b);
 
 			Color& operator+=(const Color& c) {
@@ -101,6 +102,10 @@ namespace LightBeam
 
 		inline Color operator*(const Color& u, const Color& c) {
 			return Color(u._r * c._r, u._g * c._g, u._b * c._b);
+		}
+
+		inline Color operator / (const Color& c, double t) {
+			return Color(c._r / t, c._g / t, c._b / t);
 		}
 
 		inline bool operator ==(const Color& a, const Color& b) {

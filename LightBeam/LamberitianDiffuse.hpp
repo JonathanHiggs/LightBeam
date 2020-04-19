@@ -12,28 +12,25 @@ namespace LightBeam
 	{
 		class LambertianDiffuse : public IMaterial {
 		private:
-			std::shared_ptr<const Textures::ITexture> _albedo;
+			Textures::ITextureCPtr _albedo;
 
 		public:
-			LambertianDiffuse(const Image::Color& albedo)
-				: _albedo{ std::make_shared<const Textures::ConstantTexture>(albedo) }
-			{}
+			LambertianDiffuse(const Image::Color& albedo);
 
-			LambertianDiffuse(std::shared_ptr<const Textures::ITexture> albedo)
-				: _albedo{ std::move(albedo) }
-			{}
+			LambertianDiffuse(Textures::ITextureCPtr albedo);
 
 			bool scatter(
 				const Rendering::Ray& ray,
 				const Rendering::HitRecord& hit_record,
-				Image::Color& attenuation,
-				Rendering::Ray& scattered
-			) const {
-				auto scatter_direction = hit_record.normal() + Math::Vec3::random_unit_vector();
-				scattered = Rendering::Ray(hit_record.point(), scatter_direction, ray.time());
-				attenuation = _albedo->value(hit_record.uv(), hit_record.point());
-				return true;
-			}
+				Image::Color& albedo,
+				Rendering::Ray& scattered,
+				double& pdf
+			) const;
+
+			double scattering_pdf(
+				const Rendering::Ray& ray,
+				const Rendering::HitRecord& hit_record,
+				const Rendering::Ray& scattered) const;
 		};
 	}
 }

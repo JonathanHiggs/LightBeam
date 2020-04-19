@@ -123,6 +123,18 @@ namespace LightBeam
 				return in_unit_sphere;
 			}
 
+			static Vec3 random_cosine_direction() {
+				auto r1 = Util::random_double();
+				auto r2 = Util::random_double();
+				auto z = std::sqrt(1 - r2);
+
+				auto phi = 2 * M_PI * r1;
+				auto x = std::cos(phi) * std::sqrt(r2);
+				auto y = std::sin(phi) * std::sqrt(r2);
+
+				return Vec3(x, y, z);
+			}
+
 			static Vec3 reflect(const Vec3& vec, const Vec3& normal) {
 				return vec - 2 * dot(vec, normal) * normal;
 			}

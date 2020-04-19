@@ -18,8 +18,17 @@ namespace LightBeam
 			virtual bool scatter(
 				const Rendering::Ray& ray,
 				const Rendering::HitRecord& hit_record,
-				Image::Color& attenuation,
-				Rendering::Ray& scattered) const = 0;
+				Image::Color& albedo,
+				Rendering::Ray& scattered,
+				double& pdf) const = 0;
+
+			virtual double scattering_pdf(
+				const Rendering::Ray& ray,
+				const Rendering::HitRecord& hit_record,
+				const Rendering::Ray& scattered) const
+			{
+				return 0;
+			}
 
 			virtual Image::Color emitted(
 				const Math::Vec2& uv,

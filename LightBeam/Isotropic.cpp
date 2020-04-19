@@ -20,7 +20,8 @@ namespace LightBeam
 			const Ray& ray,
 			const HitRecord& hit_record,
 			Color& attenuation,
-			Ray& scattered) const
+			Ray& scattered,
+			double& pdf) const
 		{
 			scattered = Ray(
 				ray.origin(),
