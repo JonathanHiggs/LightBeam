@@ -31,6 +31,8 @@ namespace LightBeam
 			}
 
 			virtual Image::Color emitted(
+				const Rendering::Ray& ray,
+				const Rendering::HitRecord& hit_record,
 				const Math::Vec2& uv,
 				const Math::Vec3& point) const
 			{

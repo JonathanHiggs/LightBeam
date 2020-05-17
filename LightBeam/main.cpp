@@ -7,12 +7,14 @@
 #include "Camera.hpp"
 #include "CheckerTexture.hpp"
 #include "Color.hpp"
+#include "CosinePDF.hpp"
 #include "ConstantMedium.hpp"
 #include "Constants.hpp"
 #include "ConstantTexture.hpp"
 #include "Dielectric.hpp"
 #include "DiffuseLight.hpp"
 #include "HittableList.hpp"
+#include "HittablePDF.hpp"
 #include "ImageTexture.hpp"
 #include "LamberitianDiffuse.hpp"
 #include "Metal.hpp"
@@ -53,30 +55,34 @@ Color ray_color(
 	int max_depth = 50,
 	int depth = 0)
 {
+	double scatter_pdf;
+	Color albedo;
+	Ray scattered;
+	HitRecord hit_record;
+
 	if (depth >= max_depth)
 		return Color::BLACK;
-
-	HitRecord hit_record;
 
 	if (!hittable.hit(ray, 1e-10, Util::infinity, hit_record))
 		return background;
 
-	Ray scattered;
-
 	Color emitted = !!hit_record.meterial()
-		? hit_record.meterial()->emitted(hit_record.uv(), hit_record.point())
+		? hit_record.meterial()->emitted(ray, hit_record, hit_record.uv(), hit_record.point())
 		: Color::BLACK;
 
-	double pdf;
-	Color albedo;
-
-	if (!hit_record.meterial()->scatter(ray, hit_record, albedo, scattered, pdf))
+	if (!hit_record.meterial()->scatter(ray, hit_record, albedo, scattered, scatter_pdf))
 		return emitted;
+
+	auto light_shape = std::make_shared<const XYRectangle>(213, 343, 227, 332, 554, std::make_shared<LambertianDiffuse>(Color::BLACK));
+	auto pdf = HittablePDF(light_shape, hit_record.point());
+
+	scattered = Ray(hit_record.point(), pdf.generate(), ray.time());
+	scatter_pdf = pdf.value(scattered.direction());
 
 	double scattered_pdf = hit_record.meterial()->scattering_pdf(ray, hit_record, scattered);
 	Color scattered_color = ray_color(scattered, background, hittable, max_depth, ++depth);
 
-	return emitted + albedo * scattered_pdf * scattered_color / pdf;
+	return emitted + albedo * scattered_pdf * scattered_color / scatter_pdf;
 }
 
 
@@ -218,7 +224,7 @@ BoundingVolumeNode cornell_box()
 	shapes.push_back(std::make_shared<const XZRectangle>(0, 555, 0, 555, 555, white));	// top
 	shapes.push_back(std::make_shared<const XYRectangle>(0, 555, 0, 555, 555, white));	// back
 
-	shapes.push_back(std::make_shared<const XZRectangle>(213, 343, 227, 332, 554, light));	// light
+	shapes.push_back(std::make_shared<const XZRectangle>(213, 343, 227, 332, 554, light, true));	// light
 
 	shapes.push_back(
 		std::make_shared<const Translate>(Vec3(265, 0, 295),
@@ -410,7 +416,7 @@ int main()
 	const unsigned int height = 500; // 216 * 2;
 	auto aspect_ratio = double(width) / double(height);
 
-	const int sample_rate = 24;
+	const int sample_rate = 4;
 
 	auto image = Bitmap(width, height);
 
@@ -458,6 +464,6 @@ int main()
 
 	{
 		Timer timer(&std::cerr, "Saving");
-		image.save_image("../images/image080.bmp");
+		image.save_image("../images/image084.bmp");
 	}
 }

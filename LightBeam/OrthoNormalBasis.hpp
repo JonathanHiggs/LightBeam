@@ -30,7 +30,7 @@ namespace LightBeam
 			Vec3 local(const Vec3& a) const;
 
 			static OrthoNormalBasis from(const Vec3&);
-		}
+		};
 
 	}
 }

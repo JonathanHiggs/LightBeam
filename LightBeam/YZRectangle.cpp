@@ -1,5 +1,6 @@
 #include "YZRectangle.hpp"
 #include "utils.hpp"
+#include "Constants.hpp"
 
 
 using namespace LightBeam::Math;
@@ -70,6 +71,39 @@ namespace LightBeam
 				Vec3(_x + 1e-4, _y1, _z1));
 
 			return true;
+		}
+
+		double YZRectangle::pdf_value(
+			const Vec3& origin,
+			const Vec3& direction) const
+		{
+			HitRecord hit_record;
+			auto ray = Ray(origin, direction);
+
+			if (!hit(ray, 1e-8, infinity, hit_record))
+				return 0;
+
+			auto area = (_y1 - _y0) * (_z1 - _z0);
+
+			auto distance_squared =
+				hit_record.distance()
+				* hit_record.distance()
+				* direction.length_squared();
+
+			auto cosine =
+				std::abs(Vec3::dot(direction, hit_record.normal()) / direction.length());
+
+			return distance_squared / (cosine * area);
+		}
+
+		Vec3 YZRectangle::random_from_source(const Vec3& source) const
+		{
+			auto random_point = Vec3(
+				_x,
+				random_double(_y0, _y1),
+				random_double(_z0, _z1));
+
+			return random_point - source;
 		}
 
 	}

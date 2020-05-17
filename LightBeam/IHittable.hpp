@@ -22,6 +22,18 @@ namespace LightBeam
 				double begin_time,
 				double end_time,
 				AxisAlignedBoundingBox& bounding_box) const = 0;
+
+			virtual double pdf_value(
+				const Math::Vec3& origin,
+				const Math::Vec3& direction) const
+			{
+				return 0.0;
+			}
+
+			virtual Math::Vec3 random_from_source(const Math::Vec3& source) const
+			{
+				return Math::Vec3::zero;
+			}
 		};
 
 		DECLARE_STD_PTR(IHittable)

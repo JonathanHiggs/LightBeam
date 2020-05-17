@@ -36,8 +36,15 @@ namespace LightBeam
 			return false;
 		}
 
-		Color DiffuseLight::emitted(const Vec2& uv, const Vec3& point) const
+		Color DiffuseLight::emitted(
+			const Rendering::Ray& ray,
+			const Rendering::HitRecord& hit_record,
+			const Vec2& uv,
+			const Vec3& point) const
 		{
+			if (!hit_record.front_face())
+				return Color::BLACK;
+
 			return _emit->value(uv, point);
 		}
 

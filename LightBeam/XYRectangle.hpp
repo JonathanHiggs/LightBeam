@@ -14,7 +14,7 @@ namespace LightBeam
 		private:
 			std::shared_ptr<const Materials::IMaterial> _material;
 			double _x0, _x1, _y0, _y1;
-			double _k;
+			double _z;
 
 		public:
 			XYRectangle(
@@ -22,7 +22,7 @@ namespace LightBeam
 				double x1,
 				double y0,
 				double y1,
-				double k,
+				double z,
 				std::shared_ptr<const Materials::IMaterial> material);
 
 			bool hit(
@@ -35,6 +35,12 @@ namespace LightBeam
 				double begin_time,
 				double end_time,
 				Rendering::AxisAlignedBoundingBox& bounding_box) const;
+
+			double pdf_value(
+				const Math::Vec3& origin,
+				const Math::Vec3& direction) const;
+
+			Math::Vec3 random_from_source(const Math::Vec3& source) const;
 		};
 
 	}

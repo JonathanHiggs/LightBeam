@@ -35,6 +35,12 @@ namespace LightBeam
 				double begin_time,
 				double end_time,
 				Rendering::AxisAlignedBoundingBox& bounding_box) const;
+
+			double pdf_value(
+				const Math::Vec3& origin,
+				const Math::Vec3& direction) const;
+
+			Math::Vec3 random_from_source(const Math::Vec3& source) const;
 		};
 
 	}

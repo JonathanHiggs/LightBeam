@@ -15,6 +15,7 @@ namespace LightBeam
 			std::shared_ptr<const Materials::IMaterial> _material;
 			double _x0, _x1, _z0, _z1;
 			double _y;
+			bool _flip_normal;
 
 		public:
 			XZRectangle(
@@ -23,7 +24,8 @@ namespace LightBeam
 				double z0,
 				double z1,
 				double y,
-				std::shared_ptr<const Materials::IMaterial> material);
+				std::shared_ptr<const Materials::IMaterial> material,
+				bool flip_normal = false);
 
 			bool hit(
 				const Rendering::Ray& ray,
@@ -35,6 +37,12 @@ namespace LightBeam
 				double begin_time,
 				double end_time,
 				Rendering::AxisAlignedBoundingBox& bounding_box) const;
+
+			double pdf_value(
+				const Math::Vec3& origin,
+				const Math::Vec3& direction) const;
+
+			Math::Vec3 random_from_source(const Math::Vec3& source) const;
 		};
 	}
 }

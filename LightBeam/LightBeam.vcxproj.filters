@@ -71,6 +71,12 @@
     <ClCompile Include="OrthoNormalBasis.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="CosinePDF.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="HittablePDF.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMaterial.hpp">
@@ -186,6 +192,15 @@
     </ClInclude>
     <ClInclude Include="OrthoNormalBasis.hpp">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ProbabilityDensityFunction.hpp">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="CosinePDF.hpp">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="HittablePDF.hpp">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -144,9 +144,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ConstantMedium.cpp" />
+    <ClCompile Include="CosinePDF.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
     <ClCompile Include="HittableList.cpp" />
+    <ClCompile Include="HittablePDF.cpp" />
     <ClCompile Include="Isotropic.cpp" />
     <ClCompile Include="LamberitianDiffuse.cpp" />
     <ClCompile Include="main.cpp" />
@@ -174,10 +176,12 @@
     <ClInclude Include="ConstantMedium.hpp" />
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="ConstantTexture.hpp" />
+    <ClInclude Include="CosinePDF.hpp" />
     <ClInclude Include="Dielectric.hpp" />
     <ClInclude Include="DiffuseLight.hpp" />
     <ClInclude Include="HittableList.hpp" />
     <ClInclude Include="HitRecord.hpp" />
+    <ClInclude Include="HittablePDF.hpp" />
     <ClInclude Include="IHittable.hpp" />
     <ClInclude Include="ImageTexture.hpp" />
     <ClInclude Include="IMaterial.hpp" />
@@ -190,6 +194,7 @@
     <ClInclude Include="NoiseTexture.hpp" />
     <ClInclude Include="OrthoNormalBasis.hpp" />
     <ClInclude Include="Perlin.hpp" />
+    <ClInclude Include="ProbabilityDensityFunction.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />
